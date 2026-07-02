@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#222222">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <title>Página não encontrada | Advocacia Marília</title>
+
+    <!-- Caminhos ABSOLUTOS em toda a pagina: o 404 e servido para URLs de qualquer profundidade -->
+    <link rel="preload" href="/fonts/Newsreader-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/style.css?v=28">
+
+    <style>
+        /* Pagina de erro: layout proprio, tokens e componentes do design system do site */
+        .page-404 {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--navy);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Grao fino monocromatico (mesma receita da hero/CTA do site) */
+        .page-404::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+
+        .err-header {
+            padding: 24px 36px;
+        }
+
+        .err-logo img {
+            height: 36px;
+            width: auto;
+            display: block;
+        }
+
+        .err-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .err-container {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px 96px;
+        }
+
+        .err-code {
+            font-family: var(--font-accent);
+            font-size: clamp(6.5rem, 18vw, 11rem);
+            font-weight: 600;
+            line-height: 0.9;
+            color: var(--gold);
+            font-variant-numeric: lining-nums;
+            margin-bottom: 28px;
+        }
+
+        .err-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3.2vw, 2rem);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--cream);
+            margin-bottom: 14px;
+        }
+
+        .err-text {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(235, 230, 222, 0.72);
+            max-width: 46ch;
+            margin-bottom: 40px;
+        }
+
+        .err-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 28px;
+            border-top: 1px solid rgba(235, 230, 222, 0.14);
+            padding-top: 32px;
+        }
+
+        .err-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-ui);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--cream);
+            border-bottom: 1px solid rgba(235, 230, 222, 0.4);
+            padding-bottom: 4px;
+            transition: color var(--t-snappy), border-color var(--t-snappy);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .err-back:hover {
+                color: var(--gold);
+                border-color: var(--gold);
+            }
+        }
+
+        /* Entrada silenciosa (sem JS): cascata unica de fade + leve subida */
+        @media (prefers-reduced-motion: no-preference) {
+            .err-code,
+            .err-title,
+            .err-text,
+            .err-actions {
+                opacity: 0;
+                transform: translateY(12px);
+                animation: errIn 0.8s var(--ease-premium) forwards;
+            }
+
+            .err-title { animation-delay: 0.1s; }
+            .err-text { animation-delay: 0.2s; }
+            .err-actions { animation-delay: 0.3s; }
+        }
+
+        @keyframes errIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-404">
+        <header class="err-header">
+            <a href="/" class="err-logo" aria-label="Advocacia Marília - Voltar ao início">
+                <img src="/assets/images/logo.png" alt="Logo Advocacia Marília">
+            </a>
+        </header>
+
+        <main class="err-main">
+            <div class="err-container">
+                <p class="err-code" aria-hidden="true">404</p>
+                <h1 class="err-title">Página não encontrada.</h1>
+                <p class="err-text">O endereço que você procurou não existe ou foi movido. Verifique o link ou volte para a página inicial.</p>
+
+                <div class="err-actions">
+                    <a href="/" class="btn btn-primary cta-anim"><span class="cta-label"><span class="cta-label-inner">Voltar ao Início</span><span class="cta-label-inner" aria-hidden="true">Voltar ao Início</span></span></a>
+                    <a href="/blog/" class="err-back">Ver o Blog</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -16,7 +16,14 @@ AddDefaultCharset utf-8
 DirectoryIndex index.html
 
 # ---------- Sem listagem de diretorio ----------
-Options -Indexes
+# -MultiViews: desliga a negociacao de conteudo do Apache, que conflita com as
+# regras de URL sem extensao abaixo (ela "adivinha" o .html antes do rewrite).
+Options -Indexes -MultiViews
+
+# ---------- Pagina de erro 404 personalizada ----------
+# Caminho absoluto: o 404 dispara em URLs de qualquer profundidade (ex.: /blog/xyz/).
+# A propria pagina 404.html tambem usa apenas caminhos absolutos pelo mesmo motivo.
+ErrorDocument 404 /404.html
 
 # ---------- Forcar HTTPS ----------
 <IfModule mod_rewrite.c>
@@ -24,6 +31,31 @@ Options -Indexes
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---------- URLs limpas (sem .html exposto) ----------
+# Os links internos do site ja sao limpos por estrutura (pastas com index.html).
+# Estas regras cobrem o acesso DIRETO com extensao (digitado/backlink antigo):
+#   /index.html            -> /            (301)
+#   /blog/slug/index.html  -> /blog/slug/  (301)
+#   /pagina.html           -> /pagina      (301)
+# e servem /pagina como pagina.html internamente (sem redirect, status 200).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # index.html (em qualquer pasta) -> URL da pasta
+  RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # qualquer outra pagina .html pedida com extensao -> sem extensao
+  RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html[\s?]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # serve /pagina como pagina.html (quando nao existe arquivo nem pasta com o nome)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+)$ $1.html [L]
 </IfModule>
 
 # ---------- Compressao (gzip) ----------
