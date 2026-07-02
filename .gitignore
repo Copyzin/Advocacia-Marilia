@@ -1,0 +1,15 @@
+# Documentos internos / dados pessoais (não publicar)
+curriculoseadvogados/*.docx
+curriculoseadvogados/*.doc
+ORIENTAÇÕES PARA O SITE .pdf
+
+# Notas e prompts internos da agência
+criadordesite.md
+botaozap.md
+projeto_contexto.md
+whatsapp-bubble-button.md
+docs/
+
+# OS
+.DS_Store
+Thumbs.db

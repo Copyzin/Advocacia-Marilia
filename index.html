@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advocacia Marília - Espaço jurídico de excelência, ética e compromisso. Advogados independentes especializados em diversas áreas do Direito desde 1986 em Marília/SP.">
+    <meta name="theme-color" content="#222222">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Advocacia Marília | Excelência e Tradição Jurídica">
+    <meta property="og:description" content="Espaço jurídico que reúne advogados independentes especializados em diversas áreas do Direito desde 1986, em Marília/SP.">
+    <meta property="og:locale" content="pt_BR">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <title>Advocacia Marília | Excelência e Tradição Jurídica</title>
+    
+    <!-- Pré-carregamento e Fontes Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Bodoni+Moda:opsz,wght@6..96,400..500&display=swap" rel="stylesheet">
+
+    <!-- Estilos Principais -->
+    <link rel="stylesheet" href="style.css?v=14">
+</head>
+<body>
+
+    <!-- SEÇÃO 0: NAVBAR INTELIGENTE -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#inicio" class="nav-logo" aria-label="Advocacia Marília - Voltar ao início">
+                <img src="logo.png" alt="Logo Advocacia Marília" class="logo-img">
+            </a>
+            
+            <!-- Menu Hamburguer para Mobile -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navLinks">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio" class="nav-item">Início</a></li>
+                <li><a href="#sobre" class="nav-item">O Escritório</a></li>
+                <li><a href="#atuacao" class="nav-item">Especialidades</a></li>
+                <li><a href="#equipe" class="nav-item">Equipe</a></li>
+                <li><a href="#metodologia" class="nav-item">Metodologia</a></li>
+                <li><a href="#faq" class="nav-item">Dúvidas</a></li>
+                <li><a href="blog/" class="nav-item">Blog</a></li>
+                <li><a href="#contato" class="nav-item">Contato</a></li>
+            </ul>
+
+            <!-- CTA WhatsApp no header: unico caminho ao WhatsApp visivel durante o Hero, ja que o FAB fica oculto ate #sobre -->
+            <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="nav-whatsapp" aria-label="Fale conosco no WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="nav-whatsapp-icon" aria-hidden="true">
+                    <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                <span class="nav-whatsapp-text">Fale Conosco</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO 1: HERO -->
+    <header class="hero" id="inicio">
+        <!-- Foto real do escritorio (ensaio) como fundo, p&b + veu radial navy -->
+        <div class="hero-media" aria-hidden="true">
+            <img src="fotoatendendo.webp" alt="" fetchpriority="high" class="hero-media-img">
+        </div>
+
+        <div class="hero-container">
+            <span class="hero-kicker reveal reveal-delay-1">Tradição e Ética desde 1986</span>
+            <h1 class="hero-title reveal reveal-delay-2">Espaço jurídico de excelência, ética e compromisso com o seu direito.</h1>
+            <p class="hero-subtitle reveal reveal-delay-3">Reunimos profissionais experientes e especializados de forma autônoma e independente. Prestamos assessoria técnica e personalizada para encontrar as melhores soluções.</p>
+            <a href="#sobre" class="hero-link reveal reveal-delay-4">
+                <span>Conhecer Escritório</span>
+                <svg class="hero-link-arrow" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M8 2.5v10M3.5 8.5 8 13l4.5-4.5"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- SEÇÃO 2: A ADVOGADA / SOBRE -->
+        <section class="about" id="sobre">
+            <div class="section-container">
+                <!-- Grid de 2 linhas: kicker (linha 1, col dir), imagem (linha 2, col esq) e corpo (linha 2, col dir) -->
+                <!-- compartilham a mesma linha -> topo da imagem = topo do titulo, base da imagem = fim do texto.  -->
+                <div class="about-grid reveal">
+                    <span class="section-kicker about-kicker">Quem Somos</span>
+                    <div class="about-media">
+                        <div class="about-frame">
+                            <img src="quem_somos_neutro.webp" alt="Reunião corporativa no escritório Advocacia Marília" class="about-img" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="about-body">
+                        <h2 class="section-title">Quase quatro décadas de dedicação à excelência jurídica.</h2>
+
+                        <p class="about-text">Há quase quatro décadas, este espaço jurídico reúne advogados que exercem a advocacia de forma autônoma e independente, compartilhando uma mesma estrutura, sólidos princípios éticos e o compromisso com a excelência na prestação dos serviços jurídicos.</p>
+                        <p class="about-text">Desde 1986, a tradição construída por profissionais experientes consolidou um ambiente pautado pela confiança, pelo respeito às pessoas e pela busca das melhores soluções para cada cliente. Com atuação em diversas áreas do Direito, os advogados que aqui desenvolvem suas atividades oferecem atendimento especializado, sempre preservando a autonomia profissional e a individualidade de cada relação.</p>
+                        <p class="about-text">Mais do que compartilhar um espaço de trabalho, compartilhamos valores. Acreditamos que a cooperação, a ética, o aperfeiçoamento constante e o atendimento humanizado fortalecem nossa atuação e refletem diretamente na qualidade dos serviços prestados.</p>
+                    </div>
+                </div>
+
+                <!-- LINHA DO TEMPO -->
+                <div class="timeline-wrapper reveal">
+                    <h3 class="timeline-section-title">Nossa História</h3>
+                    <div class="timeline-grid">
+                        <div class="timeline-item">
+                            <span class="timeline-year">1986</span>
+                            <h4 class="timeline-title">Fundação</h4>
+                            <p class="timeline-desc">Início das atividades advocatícias na Avenida Carlos Gomes, em Marília/SP, plantando as bases da nossa tradição.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-year">2010</span>
+                            <h4 class="timeline-title">Nova Sede</h4>
+                            <p class="timeline-desc">Mudança para a sede própria na Avenida Gonçalves Dias, nº 18, Centro, proporcionando infraestrutura moderna e acolhedora.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-year">Hoje</span>
+                            <h4 class="timeline-title">Tradição & Autonomia</h4>
+                            <p class="timeline-desc">Um espaço consolidado que reúne advogados independentes especialistas, prestando serviços com ética, sigilo e rigor técnico.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: CORPO JURÍDICO / EQUIPE -->
+        <section class="team" id="equipe">
+            <div class="section-container">
+                <div class="team-header">
+                    <span class="section-kicker">Corpo Jurídico</span>
+                    <h2 class="section-title">Nossos Advogados</h2>
+                    <p class="team-subtitle">Profissionais altamente qualificados que atuam com total independência técnica e ética profissional.</p>
+                </div>
+
+                <div class="team-grid">
+                    <!-- ADVOGADO 1: Francisco Rodrigues -->
+                    <div class="team-card reveal reveal-delay-1">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/francisco.webp" alt="Dr. Francisco Rodrigues" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dr. Francisco Rodrigues</h3>
+                            <span class="team-oab">OAB/SP 70.088</span>
+                            <p class="team-specialty">Direito Civil, Trabalhista e Imobiliário (Locações)</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. Francisco Rodrigues">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Advogado atuante desde 1982, especializado nas áreas de Direito Civil, Direito do Trabalho e Direito Imobiliário voltado a locações. Possui uma sólida trajetória institucional na advocacia, tendo sido eleito Secretário da OAB Marília (1993/1995) e Secretário-Geral (2022/2024). Foi nomeado membro do Conselho Regional de Prerrogativas de Marília (2013/2015) e membro do Conselho Regional de Prerrogativas da 11ª Região (2016/2018). Atualmente, exerce o cargo de Vice-Presidente da 31ª Subseção da OAB de Marília/SP para o triênio 2025/2027.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 2: Rogério Ortega -->
+                    <div class="team-card reveal reveal-delay-2">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/rogerioortega.webp" alt="Dr. Rogério Marques Ortega" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dr. Rogério Ortega</h3>
+                            <span class="team-oab">OAB/SP 389.761</span>
+                            <p class="team-specialty">Direito Previdenciário, Cível, do Trabalho e Consumidor</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. Rogério Marques Ortega">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Graduado pelo Centro Universitário Eurípedes de Marília - UNIVEM (2004). Especialista pós-graduado em Direito e Processo do Trabalho pela Anhanguera-UNIDERP (2010), Direito Público (2012), Direito Previdenciário e Processo Previdenciário pelo IBMEC-SP (2022) e Direito Processual Civil pelo IBMEC-SP (2025). Atua na área de Direito Previdenciário com foco na concessão e revisão de aposentadorias e benefícios. No Direito Civil, atua em contratos, relações de consumo, família e sucessões. No Direito do Trabalho, atua em advocacia contenciosa e preventiva para trabalhadores e empresas.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 3: Rogério Macedo -->
+                    <div class="team-card reveal reveal-delay-3">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/rogeriomacedo.webp" alt="Dr. Rogério Aparecido dos Santos Macedo" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dr. Rogério Macedo</h3>
+                            <span class="team-oab">OAB/SP 409.390</span>
+                            <p class="team-specialty">Direito Penal, Execução Penal, Família e Contratos</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. Rogério Aparecido dos Santos Macedo">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Graduado pela Universidade de Marília (UNIMAR) em 2017 e pós-graduado em Direito Processual Civil. Atualiza-se constantemente junto à Escola Superior da Advocacia (ESA) e LEGALE, com extensões em Juizados Especiais Criminais, Processo Penal Constitucional, Direito de Família e Responsabilidade Civil no Direito Médico. Especializado em Direito Penal e Execução Penal (defesas em flagrante, Tribunal do Júri, recursos e Habeas Corpus de urgência), Direito de Família e Sucessões (divórcios, partilhas, pensão e inventários) e assessoria em Direito Contratual.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 4: Cleomara Siqueira -->
+                    <div class="team-card reveal reveal-delay-1">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/cleomara.webp" alt="Dra. Cleomara Cardoso de Siqueira" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dra. Cleomara Siqueira</h3>
+                            <span class="team-oab">OAB/SP 162.383</span>
+                            <p class="team-specialty">Direito Previdenciário e Processual Civil</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Cleomara Cardoso de Siqueira">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Graduada em Direito pela UNIMAR (1998) e pela Escola Superior da Magistratura do Paraná (1999). Especialista pós-graduada em Direito Processual Civil pela UNIVEM (2002) e em Direito Previdenciário pelo IBMEC-SP (2020-2021). É Mestranda em Direito pela UNIMAR. Exerceu o cargo de Coordenadora Regional da Mulher Advogada da OAB/SP (2016/2018) e atua como Presidente da Comissão da Mulher Advogada da Subseção de Marília desde 2016. É coautora de artigos jurídicos sobre Alienação Parental e Contratos de Representação Comercial publicados em livros coletivos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 5: Patrícia Sausanavicius -->
+                    <div class="team-card reveal reveal-delay-2">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/patricia.webp" alt="Dra. Patrícia Sausanavicius" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dra. Patrícia Sausanavicius</h3>
+                            <span class="team-oab">OAB/SP 263.193</span>
+                            <p class="team-specialty">Direito de Família, Sucessões, Civil e Imobiliário</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Patrícia Sausanavicius">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Advogada com mais de 19 anos de experiência em advocacia e consultoria jurídica. Pós-graduada em Direito Civil e pós-graduanda em Direito Imobiliário. Atua com excelência técnica e sensibilidade humanizada no planejamento sucessório, proteção patrimonial familiar, inventários judiciais e extrajudiciais, divórcios, partilhas de bens, bem como em Direito Imobiliário (elaboração de contratos imobiliários, regularização de imóveis urbanos e rurais, usucapião e adjudicação compulsória).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 6: Simone Tinetti -->
+                    <div class="team-card reveal reveal-delay-3">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/simone.webp" alt="Dra. Simone Aparecida de Oliveira Tinetti Barbosa" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dra. Simone Tinetti</h3>
+                            <span class="team-oab">OAB/SP 376.602</span>
+                            <p class="team-specialty">Direito Criminal, Execução Penal, Previdenciário e Família</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Simone Aparecida de Oliveira Tinetti Barbosa">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Graduada em Direito pela Faculdade de Ensino Superior e Formação Integral - FAEF (2015) e pós-graduada em Direito Penal e Processual Penal. Atua com foco altamente especializado e humanizado no contencioso criminal e na execução penal de urgência, bem como na área de elaboração de contratos cíveis, Direito Previdenciário (benefícios administrativamente e judicialmente) e demandas judiciais de Família e Sucessões.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 7: Carina Alves -->
+                    <div class="team-card reveal reveal-delay-1">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/carina.webp" alt="Dra. Carina Alves Camargo Prestes" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dra. Carina Alves</h3>
+                            <span class="team-oab">OAB/SP 266.124</span>
+                            <p class="team-specialty">Direito Previdenciário (Administrativo e Judicial)</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Carina Alves Camargo Prestes">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Graduada pela Fundação Eurípedes Soares da Rocha - UNIVEM (2006), pós-graduada em Direito Processual Civil pela UNIVEM e pós-graduada em Direito do Estado com ênfase em Previdenciário e Tributário pela UNIMAR. Membro da Comissão da Mulher Advogada da Subseção de Marília desde 2016. Possui mais de 15 anos de prática especializada no Direito Previdenciário contra o INSS, com forte atuação em planejamento previdenciário, aposentadorias especiais, benefícios de incapacidade, revisões de aposentadoria e concessões judiciais.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 8: Mauri Ortega -->
+                    <div class="team-card reveal reveal-delay-2">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/joseaugusto.webp" alt="Dr. Mauri Ortega" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dr. Mauri Ortega</h3>
+                            <span class="team-oab">OAB/SP 130.638</span>
+                            <p class="team-specialty">Direito Imobiliário, Agrário, Inventários e Sucessões</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. Mauri Ortega">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Advogado militante desde 1994, com atuação altamente especializada no Direito Civil e Imobiliário. Foca na assessoria para elaboração de contratos rurais, arrendamento, parceria agrícola, partilhas, inventários e planejamento sucessório imobiliário. Atuou como membro nomeado do Conselho Regional de Prerrogativas de Marília/SP nos períodos de 2013/2015 e 2016/2018.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 9: Alessandra -->
+                    <div class="team-card reveal reveal-delay-3">
+                        <div class="team-media">
+                            <img src="curriculoseadvogados/alessandra.webp" alt="Dra. Alessandra" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dra. Alessandra</h3>
+                            <span class="team-oab">OAB/SP Ativa</span>
+                            <p class="team-specialty">Direito Civil, Relações de Consumo e Prática Preventiva</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Alessandra">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-bio-data" style="display: none;">
+                                Advogada com destacada atuação na advocacia cível e de relações consumeristas. Dedica-se à assessoria contratual e preventiva, atuando no contencioso cível com ética, sigilo absoluto e excelência técnica. Presta consultoria para a mitigação de riscos em negócios cíveis e comerciais, atuando sempre com o objetivo de oferecer soluções práticas, seguras e personalizadas para cada cliente.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: VALORES INSTITUCIONAIS -->
+        <section class="institutional" id="valores">
+            <div class="section-container">
+                <div class="institutional-grid">
+                    <div class="inst-card reveal reveal-delay-1">
+                        <span class="inst-kicker">Nosso Propósito</span>
+                        <h3 class="inst-title">Missão</h3>
+                        <p class="inst-text">Prestar serviços jurídicos com excelência técnica, ética e comprometimento, oferecendo soluções personalizadas e seguras para cada cliente, sempre pautados pelo respeito, pela transparência e pela responsabilidade profissional.</p>
+                    </div>
+                    <div class="inst-card reveal reveal-delay-2">
+                        <span class="inst-kicker">Nosso Rumo</span>
+                        <h3 class="inst-title">Visão</h3>
+                        <p class="inst-text">Consolidar um ambiente jurídico de referência pela qualidade técnica, pela confiança e pela atuação especializada de profissionais comprometidos com a constante evolução do Direito e com a excelência no atendimento.</p>
+                    </div>
+                    <div class="inst-card inst-card-wide reveal reveal-delay-3">
+                        <span class="inst-kicker">Nossa Essência</span>
+                        <h3 class="inst-title">Valores</h3>
+                        <ul class="inst-list">
+                            <li><strong>Ética e Integridade:</strong> Retidão e transparência em todas as ações profissionais.</li>
+                            <li><strong>Sigilo Profissional:</strong> Respeito absoluto à confidencialidade das demandas jurídicas.</li>
+                            <li><strong>Excelência Técnica:</strong> Rigor acadêmico e dedicação ao aprimoramento constante.</li>
+                            <li><strong>Respeito às Pessoas:</strong> Atendimento humanizado, compreendendo a individualidade.</li>
+                            <li><strong>Transparência & Cooperação:</strong> Informação constante e cooperação mútua entre especialistas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: ÁREAS DE ATUAÇÃO -->
+        <section class="practice" id="atuacao">
+            <div class="section-container">
+                <div class="practice-header">
+                    <span class="section-kicker light">Especialidades</span>
+                    <h2 class="section-title light">Áreas de atuação e excelência jurídica.</h2>
+                    <p class="practice-subtitle">Nossos advogados atuam de forma ampla e especializada, garantindo um acompanhamento minucioso em diversas vertentes do Direito.</p>
+                </div>
+                
+                <div class="practice-grid">
+                    <div class="practice-card reveal reveal-delay-1">
+                        <div class="card-number">01</div>
+                        <h3 class="card-title">Direito Civil</h3>
+                        <p class="card-desc">Atuação abrangente em conflitos cíveis, incluindo Ações de Alimentos, Execuções de Título, Sucessões, Inventários e partilhas, Cobranças de débitos e responsabilidade civil em geral.</p>
+                    </div>
+                    <div class="practice-card reveal reveal-delay-2">
+                        <div class="card-number">02</div>
+                        <h3 class="card-title">Direito Imobiliário</h3>
+                        <p class="card-desc">Assessoria jurídica em negócios imobiliários, elaboração e revisão de contratos de compra, venda e locação, regularização fundiária de imóveis e ações de proteção da posse.</p>
+                    </div>
+                    <div class="practice-card reveal reveal-delay-3">
+                        <div class="card-number">03</div>
+                        <h3 class="card-title">Direito Trabalhista</h3>
+                        <p class="card-desc">Defesa dos interesses dos trabalhadores e consultoria preventiva para empresas, com foco em cumprimento das obrigações legais e redução de litígios jurídicos.</p>
+                    </div>
+                    <div class="practice-card reveal reveal-delay-4">
+                        <div class="card-number">04</div>
+                        <h3 class="card-title">Direito Previdenciário</h3>
+                        <p class="card-desc">Orientação detalhada e planejamento previdenciário, encaminhamento de aposentadorias, concessão de benefícios assistenciais (BPC/LOAS) e recursos administrativos e judiciais.</p>
+                    </div>
+                    <div class="practice-card reveal reveal-delay-5">
+                        <div class="card-number">05</div>
+                        <h3 class="card-title">Direito Administrativo</h3>
+                        <p class="card-desc">Assessoria em licitações e contratos com a administração pública, defesa em processos administrativos disciplinares (PAD) e representação perante órgãos reguladores.</p>
+                    </div>
+                    <div class="practice-card practice-card-media reveal reveal-delay-6">
+                        <img src="fotoclosernamesaedocumentos.webp" alt="Detalhe de mesa com documentos jurídicos, caneta, óculos e celular durante análise contratual" class="card-media-img" loading="lazy">
+                        <div class="card-media-caption">
+                            <span>Sólida fundamentação técnica</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: METODOLOGIA -->
+        <section class="method" id="metodologia">
+            <div class="section-container">
+                <div class="method-header">
+                    <span class="section-kicker">Abordagem de Trabalho</span>
+                    <h2 class="section-title">Como atuamos para proteger seus direitos.</h2>
+                </div>
+                
+                <div class="method-grid">
+                    <div class="method-column reveal reveal-delay-1">
+                        <span class="method-num">01</span>
+                        <h3 class="method-title">Acolhimento e Diagnóstico</h3>
+                        <p class="method-desc">Realizamos um atendimento humanizado e exclusivo para ouvir sua história e compreender as nuances técnicas e pessoais da sua demanda jurídica.</p>
+                    </div>
+                    <div class="method-column reveal reveal-delay-2">
+                        <span class="method-num">02</span>
+                        <h3 class="method-title">Análise e Planejamento</h3>
+                        <p class="method-desc">Estudamos minuciosamente o cenário com base na legislação e jurisprudência atuais, construindo uma estratégia robusta, segura e transparente.</p>
+                    </div>
+                    <div class="method-column reveal reveal-delay-3">
+                        <span class="method-num">03</span>
+                        <h3 class="method-title">Ação e Acompanhamento</h3>
+                        <p class="method-desc">Conduzimos as medidas judiciais ou extrajudiciais com total rigor técnico, garantindo atualizações frequentes e um canal direto de comunicação com você.</p>
+                    </div>
+                </div>
+
+                <div class="method-featured reveal">
+                    <div class="method-featured-content">
+                        <h4 class="featured-heading">Compromisso com Atendimento Humanizado</h4>
+                        <p class="featured-text">Nossos advogados operam com autonomia profissional, preservando a individualidade das relações e focando em soluções sob medida, com ética e cooperação constante.</p>
+                    </div>
+                    <div class="method-featured-media">
+                        <img src="compromisso_humanizado.webp" alt="Advogado atendendo cliente no escritório Advocacia Marília" class="featured-img" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: FAQ / DÚVIDAS -->
+        <section class="faq" id="faq">
+            <div class="section-container">
+                <div class="faq-header">
+                    <span class="section-kicker">Perguntas Frequentes</span>
+                    <h2 class="section-title">Dúvidas comuns sobre nossos serviços.</h2>
+                </div>
+                
+                <div class="faq-list">
+                    <div class="faq-item reveal reveal-delay-1">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Como funciona o atendimento de advogados autônomos no mesmo espaço?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <p class="faq-text">O escritório funciona como um espaço de cooperação jurídica compartilhada. Cada advogado exerce suas atividades com total autonomia profissional, independência técnica e sigilo. Isso garante atendimento personalizado e especializado, ao mesmo tempo em que permite a cooperação entre os profissionais quando a complexidade do caso exige.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal reveal-delay-2">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Como posso agendar uma consulta jurídica no escritório?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <p class="faq-text">O agendamento pode ser feito de forma simples pelo telefone fixo <strong>(14) 3413 8384</strong> ou clicando nos botões de CTA ("Falar com um Advogado") espalhados pelo site, que direcionam para o nosso atendimento digital. Realizamos atendimentos presenciais na nossa sede e também consultas remotas por videoconferência.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal reveal-delay-3">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Quais documentos preciso providenciar para a primeira consulta?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <p class="faq-text">Para a primeira reunião de avaliação, sugerimos trazer seus documentos pessoais (RG, CPF e comprovante de endereço) e toda a documentação que esteja diretamente relacionada ao seu caso (por exemplo: contratos, notificações, carteira de trabalho, certidões de nascimento/óbito, decisões judiciais anteriores, etc.).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal reveal-delay-4">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Onde fica localizado o escritório e possui estacionamento ou acessibilidade?</span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <p class="faq-text">Estamos estabelecidos em sede própria na <strong>Avenida Gonçalves Dias, 18, Centro - Marília, SP</strong> (próximo à região central). Nossa estrutura física foi planejada para garantir total acessibilidade, conforto e absoluta privacidade durante os atendimentos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: BLOG / INFORMAÇÃO -->
+        <section class="blog" id="blog">
+            <div class="section-container">
+                <div class="blog-header">
+                    <span class="section-kicker">Informativo Jurídico</span>
+                    <h2 class="section-title">Artigos e análises da nossa equipe de advogados.</h2>
+                </div>
+                
+                <div class="blog-grid">
+                    <article class="blog-card reveal reveal-delay-1">
+                        <span class="blog-date">15 de Junho, 2026</span>
+                        <h3 class="blog-card-title">Planejamento previdenciário: como garantir uma aposentadoria segura</h3>
+                        <p class="blog-card-author">Por Dra. Carina Alves · OAB/SP 266.124</p>
+                        <p class="blog-card-excerpt">Entenda a importância de planejar a sua aposentadoria com antecedência, analisando as regras de transição e calculando o melhor momento para o requerimento.</p>
+                        <a href="blog/planejamento-previdenciario/" class="blog-read-more" aria-label="Ler artigo completo sobre Planejamento Previdenciário">Ler artigo completo</a>
+                    </article>
+                    <article class="blog-card reveal reveal-delay-2">
+                        <span class="blog-date">02 de Junho, 2026</span>
+                        <h3 class="blog-card-title">Inventário extrajudicial: o caminho mais rápido para a partilha de bens</h3>
+                        <p class="blog-card-author">Por Dra. Patrícia Sausanavicius · OAB/SP 263.193</p>
+                        <p class="blog-card-excerpt">Saiba como realizar a partilha de bens de forma ágil através de cartório de notas, economizando tempo e evitando o desgaste de um processo judicial demorado.</p>
+                        <a href="blog/inventario-extrajudicial/" class="blog-read-more" aria-label="Ler artigo completo sobre Inventário Extrajudicial">Ler artigo completo</a>
+                    </article>
+                    <article class="blog-card reveal reveal-delay-3">
+                        <span class="blog-date">24 de Maio, 2026</span>
+                        <h3 class="blog-card-title">Contratos imobiliários: cuidados essenciais antes de assinar a compra</h3>
+                        <p class="blog-card-author">Por Dr. Mauri Ortega · OAB/SP 130.638</p>
+                        <p class="blog-card-excerpt">Descubra as principais cláusulas que devem ser revisadas por um advogado de confiança para prevenir fraudes, atrasos e dores de cabeça futuras.</p>
+                        <a href="blog/contratos-imobiliarios-compra-segura/" class="blog-read-more" aria-label="Ler artigo completo sobre Contratos Imobiliários">Ler artigo completo</a>
+                    </article>
+                </div>
+
+                <a href="blog/" class="blog-all-link">
+                    Ver todos os artigos
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6: CTA FINAL -->
+        <section class="cta" id="contato">
+            <div class="section-container">
+                <div class="cta-card reveal">
+                    <span class="cta-kicker">Fale Conosco</span>
+                    <h2 class="cta-title">Agende sua consulta e garanta a melhor defesa para os seus direitos.</h2>
+                    <p class="cta-subtitle">Nossos especialistas estão à disposição para analisar o seu caso com sigilo absoluto, ética e dedicação técnica.</p>
+                    
+                    <div class="cta-info-grid">
+                        <div class="cta-info-item">
+                            <span class="info-label">Telefone</span>
+                            <a href="tel:1434138384" class="info-value">(14) 3413 8384</a>
+                        </div>
+                        <div class="cta-info-item">
+                            <span class="info-label">Endereço</span>
+                            <address class="info-value">Av. Gonçalves Dias, 18, Centro - Marília, SP</address>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Enviar Mensagem via WhatsApp</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SEÇÃO 7: FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <a href="#inicio" class="footer-logo" aria-label="Advocacia Marília - Voltar ao início">
+                    <img src="logo.png" alt="Logo Advocacia Marília" class="logo-img-footer">
+                </a>
+                <ul class="footer-nav">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">O Escritório</a></li>
+                    <li><a href="#atuacao">Especialidades</a></li>
+                    <li><a href="#equipe">Equipe</a></li>
+                    <li><a href="#metodologia">Metodologia</a></li>
+                    <li><a href="#faq">Dúvidas</a></li>
+                    <li><a href="blog/">Blog</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Advocacia Marília. Todos os direitos reservados. Serviços jurídicos prestados por advogados independentes.</p>
+                <!-- CRÉDITO OBRIGATÓRIO (CLICÁVEL) -->
+                <p class="footer-credit">Site desenvolvido por <a href="https://almeidaescaladigital.com" target="_blank" rel="noopener noreferrer" class="credit-link">Almeida Escala Digital</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WIDGET DE WHATSAPP FLUTUANTE INTELIGENTE -->
+    <div class="wa-widget" id="waWidget">
+        <!-- Balão de Tooltip de Inatividade -->
+        <div class="wa-tooltip" id="waTooltip" aria-live="polite">
+            <span>Olá, como posso ajudar?</span>
+            <button class="wa-tooltip-close" id="waTooltipClose" aria-label="Fechar balão de ajuda">&times;</button>
+        </div>
+
+        <!-- FAB redondo verde WhatsApp: clique navega pro wa.me; hover (desktop) abre o chat -->
+        <a class="wa-btn" id="waBtn" href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="wa-icon" aria-hidden="true">
+                <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
+        </a>
+
+        <!-- Painel de Chat Flutuante -->
+        <div class="wa-panel" id="waPanel" role="dialog" aria-label="Atendimento Advocacia Marília">
+            <header class="wa-panel-header">
+                <div class="wa-brand">
+                    <span class="wa-brand-name">Advocacia Marília</span>
+                    <span class="wa-brand-status">Atendimento Digital</span>
+                </div>
+            </header>
+            
+            <div class="wa-panel-body" id="waPanelBody">
+                <div class="wa-chat-area" id="waChatArea">
+                    <div class="wa-message wa-msg-received">
+                        <p>Olá! Selecione uma das perguntas abaixo ou fale direto com nossa equipe:</p>
+                    </div>
+                </div>
+
+                <!-- Lista de Perguntas Frequentes baseadas no FAQ do site -->
+                <div class="wa-faq-list" id="waFaqList">
+                    <button class="wa-faq-btn" data-id="1">Como funciona o atendimento de advogados autônomos?</button>
+                    <button class="wa-faq-btn" data-id="2">Como posso agendar uma consulta jurídica?</button>
+                    <button class="wa-faq-btn" data-id="3">Quais documentos levar para a primeira consulta?</button>
+                    <button class="wa-faq-btn" data-id="4">Onde fica localizado o escritório?</button>
+                </div>
+            </div>
+
+            <footer class="wa-panel-footer">
+                <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="wa-direct-link">Falar no WhatsApp</a>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MODAL DE PERFIL DE ADVOGADO (UX PREMIUM EDITORIAL) -->
+    <div class="team-modal" id="teamModal" role="dialog" aria-hidden="true" aria-label="Perfil do Advogado">
+        <div class="team-modal-overlay" id="teamModalOverlay"></div>
+        <div class="team-modal-content">
+            <button class="team-modal-close" id="teamModalClose" aria-label="Fechar perfil">&times;</button>
+            <div class="team-modal-body">
+                <div class="team-modal-media">
+                    <img src="" alt="" id="teamModalImg" class="team-modal-img">
+                </div>
+                <div class="team-modal-info">
+                    <h3 class="team-modal-name" id="teamModalName"></h3>
+                    <span class="team-modal-oab" id="teamModalOab"></span>
+                    <span class="team-modal-specialty" id="teamModalSpecialty"></span>
+                    <div class="team-modal-bio-wrapper">
+                        <p class="team-modal-text" id="teamModalBio"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Principais -->
+    <script src="script.js?v=4"></script>
+</body>
+</html>
