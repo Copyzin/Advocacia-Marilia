@@ -1,4 +1,85 @@
 /* ==========================================================================
+   FONTES (self-hosted, woff2) — sem dependencia de Google Fonts CDN
+   ========================================================================== */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/WorkSans-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/WorkSans-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('fonts/WorkSans-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/Bitter-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('fonts/Bitter-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('fonts/Inter-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('fonts/Inter-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Newsreader';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/Newsreader-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Newsreader';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('fonts/Newsreader-SemiBold.woff2') format('woff2');
+}
+
+/* ==========================================================================
    DESIGN SYSTEM & TOKENS (CSS VARIABLES)
    ========================================================================== */
 :root {
@@ -17,9 +98,11 @@
     --border-light: rgba(178, 148, 116, 0.2); /* Ocre translúcido para bordas */
     --border-dark: rgba(235, 230, 222, 0.15); /* Creme translúcido para bordas */
     
-    /* Tipografia */
-    --font-serif: 'Playfair Display', Georgia, serif;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* Tipografia (4 papeis: titulo / leitura longa / UI / destaque-numeros) */
+    --font-heading: 'Work Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Bitter', Georgia, serif;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-accent: 'Newsreader', Georgia, serif;
     
     /* Animações Premium (Curva Apple) */
     --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
@@ -64,8 +147,18 @@ html {
     font-size: 16px;
 }
 
+/* Lenis ativo: desliga o smooth nativo (senao ha "double smoothing" no scroll) */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+html.lenis {
+    scroll-behavior: auto !important;
+}
+
 body {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     background-color: var(--cream);
     color: var(--text-dark);
     line-height: 1.6;
@@ -100,21 +193,21 @@ address {
     font-style: normal;
 }
 
-/* Numerais display em Bodoni Moda (didone, algarismos lining regulares). */
+/* Numerais display em Newsreader (serifa editorial, algarismos lining regulares). */
 /* line-height 1 para nao invadir o espacamento vertical dos vizinhos. */
 .card-number,
 .method-num,
 .timeline-year {
-    font-family: 'Bodoni Moda', var(--font-serif), serif;
-    font-weight: 400;
+    font-family: var(--font-accent);
+    font-weight: 500;
     font-variant-numeric: lining-nums;
     line-height: 1;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
 }
 
 /* Numeracoes discretas (telefones etc.): Inter light com digitos tabulares. */
 .info-value[href^="tel:"] {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-weight: 300;
     font-variant-numeric: lining-nums tabular-nums;
     letter-spacing: 0.02em;
@@ -150,7 +243,7 @@ address {
 /* Kickers & Títulos Editoriais */
 .section-kicker {
     display: block;
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -164,7 +257,7 @@ address {
 }
 
 .section-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: clamp(2.25rem, 4.5vw, 3.4rem);
     font-weight: 600;
     line-height: 1.08;
@@ -184,7 +277,7 @@ address {
     align-items: center;
     justify-content: center;
     padding: 14px 28px;
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.875rem;
     font-weight: 500;
     letter-spacing: 0.05em;
@@ -207,6 +300,49 @@ address {
     border: 1px solid rgba(235, 230, 222, 0.3);
 }
 
+/* ---- CTA premium (.cta-anim): rotulo roll-up + sheen diagonal + micro-detalhes ---- */
+/* So transform/opacity (GPU). Sobrio: a forma flat e a paleta nao mudam; o movimento  */
+/* e que carrega o requinte. Usado no "Fale Conosco" do header e nos botoes WhatsApp. */
+.cta-anim {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* Faixa de luz diagonal que varre o botao uma vez por hover */
+.cta-anim::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.30) 50%, transparent 100%);
+    transform: translateX(-180%) skewX(-18deg);
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes ctaSheen {
+    from { transform: translateX(-180%) skewX(-18deg); }
+    to { transform: translateX(340%) skewX(-18deg); }
+}
+
+/* Rotulo em duas copias empilhadas: no hover a de cima rola pra fora e a debaixo assume */
+.cta-label {
+    display: flex;
+    flex-direction: column;
+    height: 1.3em;
+    line-height: 1.3;
+    overflow: hidden;
+}
+
+.cta-label-inner {
+    display: block;
+    flex-shrink: 0;
+    transition: transform 0.45s var(--ease-premium);
+}
+
 /* Hovers de Botão Seguros e Sofisticados */
 @media (hover: hover) and (pointer: fine) {
     .btn-primary:hover {
@@ -219,6 +355,14 @@ address {
         background-color: rgba(235, 230, 222, 0.05);
         border-color: var(--cream);
         transform: translateY(-2px);
+    }
+
+    .cta-anim:hover::before {
+        animation: ctaSheen 0.9s var(--ease-premium);
+    }
+
+    .cta-anim:hover .cta-label-inner {
+        transform: translateY(-100%);
     }
 }
 
@@ -308,7 +452,7 @@ address {
 
 /* Micro-interação de Link com Linha Expansiva */
 .nav-item {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -343,6 +487,129 @@ address {
     }
 }
 
+/* Dropdown "Blog" -> categorias do informativo (Dropdown Patterns.md, origem HAAS). */
+/* display:contents no mobile: o wrapper some do fluxo, o <a> continua filho direto  */
+/* do <li> do drawer (largura/numeracao intactas). So vira dropdown de verdade a     */
+/* partir do breakpoint desktop do proprio header (992px, ver .nav-links acima).     */
+.nav-group {
+    display: contents;
+}
+
+@media (min-width: 992px) {
+    .nav-group {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Caret = span de verdade, injetado pelo JS logo apos o texto (nunca ::after: */
+    /* .nav-item ja usa ::after pro sublinhado do hover, e os dois colidiriam no   */
+    /* mesmo pseudo-elemento -- o quadradinho herdava position:absolute/bottom:0/  */
+    /* left:0 do sublinhado e aparecia fora do lugar em vez de ao lado do texto).  */
+    .nav-group__trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .nav-caret {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-right: 1.5px solid currentColor;
+        border-bottom: 1.5px solid currentColor;
+        transform: rotate(45deg);
+        transition: transform 240ms var(--ease-premium);
+        opacity: 0.65;
+    }
+
+    .nav-group.is-open .nav-caret {
+        transform: rotate(225deg);
+    }
+
+    /* Painel: comeca invisivel, deslocado 8px p/ baixo. padding-top = bridge anti dead-zone */
+    .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px);
+        padding-top: 16px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 220ms var(--ease-premium), transform 220ms var(--ease-premium), visibility 0s linear 220ms;
+        z-index: 10;
+    }
+
+    .nav-group.is-open .nav-dropdown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+        transition: opacity 220ms var(--ease-premium), transform 220ms var(--ease-premium), visibility 0s;
+    }
+
+    /* Card minimalista: fundo solido (sem backdrop-filter -- evita o vazamento de luz */
+    /* do blur sobre o hero escuro, ja documentado em .navbar.scrolled) */
+    .nav-dropdown__inner {
+        min-width: 300px;
+        background-color: var(--navy);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-btn);
+        box-shadow: 0 28px 64px -28px rgba(0, 0, 0, 0.55);
+        padding: 8px;
+    }
+
+    .nav-dropdown__eyebrow {
+        font-family: var(--font-ui);
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 8px 14px 10px;
+    }
+
+    .nav-dropdown__item {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 11px 14px;
+        border-radius: var(--radius-btn);
+        transition: background-color var(--t-snappy);
+    }
+
+    .nav-dropdown__item + .nav-dropdown__item {
+        border-top: 1px solid rgba(235, 230, 222, 0.08);
+    }
+
+    .nav-dropdown__item:hover,
+    .nav-dropdown__item:focus-visible {
+        background-color: rgba(178, 148, 116, 0.12);
+        outline: none;
+    }
+
+    .nav-dropdown__label {
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: var(--cream);
+        transition: color var(--t-snappy);
+    }
+
+    .nav-dropdown__item:hover .nav-dropdown__label {
+        color: var(--gold);
+    }
+
+    .nav-dropdown__sub {
+        font-family: var(--font-ui);
+        font-size: 0.75rem;
+        color: rgba(235, 230, 222, 0.55);
+        line-height: 1.4;
+    }
+}
+
 /* CTA do header com rotulo: unico caminho ao WhatsApp visivel durante o Hero (FAB oculto ate #sobre) */
 .nav-whatsapp {
     order: 3;
@@ -356,7 +623,7 @@ address {
     background-color: var(--gold);
     color: var(--navy);
     flex-shrink: 0;
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -369,6 +636,7 @@ address {
     width: 17px;
     height: 17px;
     flex-shrink: 0;
+    transition: transform 0.45s var(--ease-premium);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -377,6 +645,14 @@ address {
         transform: translateY(-1px);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
     }
+
+    .nav-whatsapp:hover .nav-whatsapp-icon {
+        transform: scale(1.15) rotate(-8deg);
+    }
+}
+
+.nav-whatsapp:active {
+    transform: translateY(0) scale(0.98);
 }
 
 @media (max-width: 479px) {
@@ -411,7 +687,34 @@ address {
     .menu-toggle {
         display: flex;
     }
-    
+
+    /* .nav-group vira display:contents aqui (ver acima): sem isto o painel do    */
+    /* dropdown do Blog renderizaria solto dentro do drawer, junto do link. */
+    .nav-dropdown {
+        display: none;
+    }
+
+    .nav-caret {
+        display: none;
+    }
+
+    /* Overlay escurecedor atras do drawer (classe .menu-open no body via JS) */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-color: rgba(10, 10, 10, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--t-smooth);
+        z-index: 999;
+    }
+
+    body.menu-open::before {
+        opacity: 1;
+    }
+
+    /* Drawer editorial: itens numerados sobre hairlines, rotulo no topo */
     .nav-links {
         position: fixed;
         top: 0;
@@ -421,34 +724,93 @@ address {
         height: 100vh;
         background-color: var(--navy);
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: flex-start;
-        padding: 80px 40px;
-        gap: 24px;
+        padding: 104px 32px 40px;
+        gap: 0;
+        counter-reset: navitem;
         transform: translateX(100%);
         transition: transform var(--t-smooth);
         box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
         border-left: 1px solid var(--border-dark);
+        overflow-y: auto;
     }
-    
+
+    /* Rotulo discreto no alto do drawer */
+    .nav-links::before {
+        content: 'Menu';
+        font-family: var(--font-ui);
+        font-size: 0.6875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--gold);
+        margin-bottom: 14px;
+    }
+
     .nav-links.active {
         transform: translateX(0);
     }
-    
+
+    .nav-links li {
+        width: 100%;
+        counter-increment: navitem;
+        border-top: 1px solid rgba(235, 230, 222, 0.08);
+        opacity: 0;
+        transform: translateX(18px);
+        transition: opacity 0.5s var(--ease-premium), transform 0.5s var(--ease-premium);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: 1px solid rgba(235, 230, 222, 0.08);
+    }
+
+    /* Entrada em cascata quando o drawer abre; saida imediata (sem delay) ao fechar */
+    .nav-links.active li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .nav-links.active li:nth-child(1) { transition-delay: 0.10s; }
+    .nav-links.active li:nth-child(2) { transition-delay: 0.14s; }
+    .nav-links.active li:nth-child(3) { transition-delay: 0.18s; }
+    .nav-links.active li:nth-child(4) { transition-delay: 0.22s; }
+    .nav-links.active li:nth-child(5) { transition-delay: 0.26s; }
+    .nav-links.active li:nth-child(6) { transition-delay: 0.30s; }
+    .nav-links.active li:nth-child(7) { transition-delay: 0.34s; }
+    .nav-links.active li:nth-child(8) { transition-delay: 0.38s; }
+
     .nav-item {
-        font-size: 1rem;
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        width: 100%;
+        padding: 15px 2px;
+        font-family: var(--font-heading);
+        font-size: 1.125rem;
+        font-weight: 500;
         color: var(--cream);
     }
-    
+
+    /* Numeracao editorial 01-08 na serifa de destaque */
+    .nav-item::before {
+        content: counter(navitem, decimal-leading-zero);
+        font-family: var(--font-accent);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        color: var(--gold);
+        letter-spacing: 0.08em;
+    }
+
     /* Menu Ativo Hamburguer */
     .menu-toggle.active .bar:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
     }
-    
+
     .menu-toggle.active .bar:nth-child(2) {
         opacity: 0;
     }
-    
+
     .menu-toggle.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
@@ -528,7 +890,7 @@ address {
 }
 
 .hero-kicker {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -537,20 +899,22 @@ address {
     margin-bottom: 20px;
 }
 
+/* Unico heading do site fora do --font-heading: usa a serifa de destaque (--font-accent) */
+/* pesada (600) para dar o impacto editorial/institucional que a Work Sans Regular nao dava. */
 .hero-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 400;
-    line-height: 1.15;
+    font-family: var(--font-accent);
+    font-size: clamp(2.65rem, 5.2vw, 3.7rem);
+    font-weight: 600;
+    line-height: 1.16;
     max-width: 560px;
     margin-bottom: 24px;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: var(--cream);
     text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
 }
 
 .hero-subtitle {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: clamp(1rem, 1.5vw, 1.125rem);
     font-weight: 300;
     line-height: 1.6;
@@ -566,7 +930,7 @@ address {
     gap: 10px;
     padding: 14px 2px; /* area de toque ~48px sem precisar de fundo visivel */
     margin: -14px -2px;
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -595,6 +959,12 @@ address {
     }
 }
 
+/* Os 3 pontos sao um componente exclusivo do mobile (desktop mantem o paragrafo) */
+.hero-points {
+    display: none;
+    list-style: none;
+}
+
 /* Mobile: recorte da foto focado no rosto, veu cobrindo quase tudo (sem "sobra" pra respirar foto numa tela estreita). */
 /* padding-bottom so estetico agora -- o widget do WhatsApp fica oculto no Hero em qualquer viewport, sem risco de colisao. */
 @media (max-width: 767px) {
@@ -612,6 +982,53 @@ address {
 
     .hero-container {
         padding: 28px 24px 24px;
+    }
+
+    /* Hero enxuto: titulo mais compacto, paragrafo longo sai, entram 3 pontos */
+    /* editoriais com hairline -- escaneaveis num relance, sem parede de texto. */
+    .hero-kicker {
+        font-size: 0.75rem;
+        margin-bottom: 16px;
+    }
+
+    .hero-title {
+        font-size: 2.15rem;
+        line-height: 1.18;
+        margin-bottom: 28px;
+    }
+
+    .hero-subtitle {
+        display: none;
+    }
+
+    .hero-points {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 36px;
+    }
+
+    .hero-points li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-top: 1px solid rgba(235, 230, 222, 0.16);
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(235, 230, 222, 0.82);
+    }
+
+    .hero-points li::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--gold);
+        flex-shrink: 0;
     }
 }
 
@@ -712,6 +1129,7 @@ address {
 }
 
 .about-text {
+    font-family: var(--font-body);
     font-size: 0.95rem;
     line-height: 1.7;
     color: rgba(34, 34, 34, 0.85);
@@ -731,7 +1149,7 @@ address {
 }
 
 .timeline-section-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.75rem;
     margin-bottom: 40px;
     font-weight: 500;
@@ -764,7 +1182,7 @@ address {
 }
 
 .timeline-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.25rem;
     margin-bottom: 12px;
     font-weight: 500;
@@ -843,13 +1261,14 @@ address {
 }
 
 .inst-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.75rem;
     font-weight: 500;
     margin-bottom: 16px;
 }
 
 .inst-text {
+    font-family: var(--font-body);
     font-size: 0.9375rem;
     line-height: 1.7;
     color: rgba(34, 34, 34, 0.8);
@@ -941,7 +1360,7 @@ address {
 }
 
 .card-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 500;
     margin-bottom: 16px;
@@ -955,24 +1374,18 @@ address {
 }
 
 /* Card especial com Foto do Ensaio */
-/* Camadas (topo -> base): 1) moldura = janela de recorte (clip-path) do card, que se     */
-/* estende para baixo no hover com o topo fixo; 2) texto estacionario em top:100%, sem    */
-/* fundo; 3) a foto, que cresce junto com a moldura (height) e passa POR TRAS do texto,   */
-/* revelando-o "dentro" da imagem. A foto e absoluta: nao dita a altura da linha do grid, */
-/* entao a base do card alinha com o fim do texto dos vizinhos. */
+/* Camadas (topo -> base): moldura de tamanho FIXO (altura = a linha do grid, igual as     */
+/* demais colunas, overflow:hidden) que nao muda de tamanho no hover; dentro dela a foto   */
+/* descansa ampliada (scale > 1, origem na base) e no hover recua para escala 1, revelando */
+/* mais da cena de baixo para cima sem nunca extrapolar os limites da moldura; a legenda   */
+/* fica centralizada e sobe suavemente (ease-in) por cima do scrim junto com o zoom-out.   */
 .practice-card-media {
     padding: 0;
     position: relative;
     border-top: none;
     min-height: 0;
     height: 100%;
-    clip-path: inset(0 0 0 0);
-}
-
-/* Depois de revelado, o card troca a transicao do .reveal pela do clip-path (a regra do */
-/* .reveal vem depois no arquivo e venceria a cascata sem o seletor composto abaixo). */
-.practice-card-media.revealed {
-    transition: opacity 0.8s var(--ease-premium), transform 0.8s var(--ease-premium), clip-path var(--t-smooth);
+    overflow: hidden;
 }
 
 .card-media-img {
@@ -986,56 +1399,68 @@ address {
     object-position: 50% 38%;
     /* p&b consistente com o resto da fotografia do site */
     filter: grayscale(100%) contrast(105%) brightness(78%);
-    transition: height var(--t-smooth);
+    transform: scale(1.12);
+    transform-origin: 50% 100%;
+    transition: transform 0.9s var(--ease-premium);
 }
 
-/* Texto estacionario na faixa logo abaixo da base de repouso; invisivel em repouso */
-/* porque a moldura (clip-path) corta na borda do card. Scrim estatico (sem fade)   */
-/* para o texto ler sobre qualquer area clara da foto. */
+/* Legenda centralizada, escondida em repouso (opacity) e um span interno que sobe */
+/* de baixo para cima em ease-in no hover, junto com o zoom-out da foto. */
 .card-media-caption {
     position: absolute;
-    top: 100%;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 96px;
-    padding: 0 30px;
+    padding: 0 24px;
     background: linear-gradient(to top, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.35) 70%, rgba(10, 10, 10, 0) 100%);
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
     z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
 }
 
 .card-media-caption span {
-    font-family: var(--font-serif);
-    font-size: 1.125rem;
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    line-height: 1.65;
     letter-spacing: 0.05em;
     color: var(--gold);
     text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5);
+    transform: translateY(24px);
+    transition: transform 0.5s ease-in;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .practice-card-media:hover {
-        clip-path: inset(0 0 -96px 0);
-        z-index: 2;
+    .practice-card-media:hover .card-media-img {
+        transform: scale(1);
     }
 
-    .practice-card-media:hover .card-media-img {
-        height: calc(100% + 96px);
+    .practice-card-media:hover .card-media-caption {
+        opacity: 1;
+    }
+
+    .practice-card-media:hover .card-media-caption span {
+        transform: translateY(0);
     }
 }
 
-/* Touch: sem hover -> foto e legenda empilhadas em fluxo normal */
+/* Touch: sem hover -> foto e legenda empilhadas em fluxo normal, sempre visiveis */
 @media (max-width: 767px) {
     .practice-card-media {
         min-height: 0;
         height: auto;
-        clip-path: none;
     }
 
     .card-media-img {
         position: static;
         display: block;
         height: 360px;
+        transform: none;
     }
 
     .card-media-caption {
@@ -1043,6 +1468,11 @@ address {
         height: auto;
         padding: 20px 0 0;
         background: none;
+        opacity: 1;
+    }
+
+    .card-media-caption span {
+        transform: none;
     }
 }
 
@@ -1099,7 +1529,7 @@ address {
 }
 
 .method-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.35rem;
     font-weight: 500;
     margin-bottom: 16px;
@@ -1128,6 +1558,7 @@ address {
 }
 
 .method-featured-content {
+    position: relative;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -1140,32 +1571,130 @@ address {
     }
 }
 
+/* Hover do card = "focus pull": o lado esquerdo passa pelo desfoque e TERMINA na foto */
+/* nitida e COLORIDA. Sem filter animado em runtime -- sao dois assets pre-prontos      */
+/* (desfocado e nitido, mesmo recorte/cor) em crossfade escalonado. Barato na GPU. */
+.featured-swap-blur,
+.featured-swap-sharp {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Saida (sem hover): o nitido desfoca rapido e o blur segura um instante antes de sumir */
+.featured-swap-blur {
+    background-image: url('compromisso_reuniao_blur.webp');
+    transition: opacity 0.6s var(--ease-premium) 0.15s;
+}
+
+.featured-swap-sharp {
+    background-image: url('compromisso_reuniao.webp');
+    transition: opacity 0.45s var(--ease-premium);
+}
+
+/* Mesma tipografia nos DOIS estados: o painel do hover usa ESTAS classes -- a       */
+/* transicao le "limpa" porque so o conteudo muda, nunca a formatacao. Na saida do    */
+/* hover o texto de repouso volta por ULTIMO (delay 0.3s, depois do blur dissolver). */
 .featured-heading {
-    font-family: var(--font-serif);
+    position: relative;
+    font-family: var(--font-heading);
     font-size: 1.75rem;
     margin-bottom: 18px;
     font-weight: 500;
+    transition: opacity 0.5s var(--ease-premium) 0.3s;
 }
 
 .featured-text {
+    position: relative;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     line-height: 1.7;
     color: rgba(34, 34, 34, 0.8);
+    transition: opacity 0.5s var(--ease-premium) 0.3s;
 }
 
+.featured-text + .featured-text {
+    margin-top: 14px;
+}
+
+/* A coluna da foto dita a altura via aspect-ratio do recorte exato (1200x1143):        */
+/* garante cabelo e maos da advogada sempre visiveis, sem novo corte pelo object-fit.   */
 .method-featured-media {
     width: 100%;
-    height: 100%;
     min-height: 300px;
     position: relative;
+    aspect-ratio: 1200 / 1143;
+    overflow: hidden;
 }
 
+/* Parallax sutil (JS escreve translateY via rAF): a foto e 8% mais alta que o quadro, */
+/* com 4% de folga p/ cada lado -- o corte maximo do topo (3.7%) fica ABAIXO da margem  */
+/* acima do cabelo baked no crop (5.5%), entao a cabeca nunca corta (geometria do       */
+/* padrao parallax head-safe da agencia). */
 .featured-img {
+    position: absolute;
+    top: -4%;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: 108%;
     object-fit: cover;
+    will-change: transform;
     /* Mesmo tratamento do about-img: fotografia monocromatica coerente em todo o site */
     filter: grayscale(92%) sepia(8%) contrast(106%) brightness(94%);
+}
+
+/* Lado direito no hover: painel claro com o texto-compromisso, na MESMA formatacao */
+/* do texto de repouso (usa .featured-heading/.featured-text) e mesmo padding do     */
+/* .method-featured-content -> os dois estados de texto sao visualmente identicos. */
+.featured-hover-panel {
+    position: absolute;
+    inset: 0;
+    background-color: #FBF8F3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease-premium), transform 0.5s var(--ease-premium);
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .featured-hover-panel {
+        padding: 60px;
+    }
+}
+
+/* GATILHO: a foto da direita. Coreografia de entrada sequenciada -- o texto SAI     */
+/* primeiro (imediato), o blur ENTRA levemente atrasado, o nitido foca por ultimo.   */
+/* A saida espelha: nitido desfoca, blur dissolve, texto de repouso volta por ultimo */
+/* (delay nas regras-base de cada camada). */
+@media (hover: hover) and (pointer: fine) {
+    .method-featured:has(.method-featured-media:hover) .method-featured-content .featured-heading,
+    .method-featured:has(.method-featured-media:hover) .method-featured-content .featured-text {
+        opacity: 0;
+        transition: opacity 0.35s var(--ease-premium);
+    }
+
+    .method-featured:has(.method-featured-media:hover) .featured-swap-blur {
+        opacity: 1;
+        transition: opacity 0.5s var(--ease-premium) 0.2s;
+    }
+
+    .method-featured:has(.method-featured-media:hover) .featured-swap-sharp {
+        opacity: 1;
+        transition: opacity 1s var(--ease-premium) 0.45s;
+    }
+
+    .method-featured:has(.method-featured-media:hover) .featured-hover-panel {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.8s var(--ease-premium) 0.3s, transform 0.8s var(--ease-premium) 0.3s;
+    }
 }
 
 /* ==========================================================================
@@ -1203,7 +1732,7 @@ address {
     align-items: center;
     justify-content: space-between;
     text-align: left;
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     font-weight: 500;
     color: var(--navy);
@@ -1270,6 +1799,7 @@ address {
 }
 
 .faq-text {
+    font-family: var(--font-body);
     padding: 0 48px 26px 0;
     font-size: 0.9rem;
     line-height: 1.65;
@@ -1317,7 +1847,7 @@ address {
 }
 
 .cta-kicker {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -1327,7 +1857,7 @@ address {
 }
 
 .cta-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: clamp(2.1rem, 4.5vw, 3.25rem);
     line-height: 1.12;
     margin-bottom: 20px;
@@ -1386,7 +1916,7 @@ address {
 }
 
 .info-value {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.3rem;
     color: var(--cream);
     line-height: 1.4;
@@ -1554,7 +2084,7 @@ a.info-value {
 }
 
 .blog-card-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.35;
@@ -1643,7 +2173,7 @@ a.info-value {
 }
 
 .blog-hero-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: clamp(2.25rem, 4.5vw, 3.4rem);
     font-weight: 600;
     line-height: 1.08;
@@ -1675,7 +2205,7 @@ a.info-value {
 }
 
 .blog-cat-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.6rem;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -1702,7 +2232,7 @@ a.info-value {
     align-items: center;
     gap: 10px;
     margin-top: 48px;
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -1757,7 +2287,7 @@ a.info-value {
 }
 
 .article-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: clamp(2rem, 4.2vw, 2.9rem);
     font-weight: 600;
     line-height: 1.12;
@@ -1784,6 +2314,7 @@ a.info-value {
 }
 
 .article-body p {
+    font-family: var(--font-body);
     font-size: 1rem;
     line-height: 1.8;
     color: rgba(34, 34, 34, 0.85);
@@ -1792,7 +2323,7 @@ a.info-value {
 }
 
 .article-body h2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -1808,6 +2339,7 @@ a.info-value {
 }
 
 .article-body ul li {
+    font-family: var(--font-body);
     position: relative;
     padding-left: 20px;
     font-size: 0.95rem;
@@ -1874,7 +2406,7 @@ a.info-value {
 }
 
 .article-author-name {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--navy);
@@ -1971,7 +2503,7 @@ a.info-value {
 }
 
 .team-subtitle {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 1rem;
     color: rgba(34, 34, 34, 0.75);
     margin-top: 15px;
@@ -2034,7 +2566,7 @@ a.info-value {
 }
 
 .team-name {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.35rem;
     color: var(--navy);
     font-weight: 600;
@@ -2043,7 +2575,7 @@ a.info-value {
 }
 
 .team-oab {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.75rem;
     color: var(--gold-hover);
     text-transform: uppercase;
@@ -2054,7 +2586,7 @@ a.info-value {
 }
 
 .team-specialty {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.875rem;
     color: rgba(34, 34, 34, 0.7);
     line-height: 1.55;
@@ -2072,7 +2604,7 @@ a.info-value {
     border: none;
     padding: 0;
     color: var(--navy);
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -2251,7 +2783,7 @@ a.info-value {
 }
 
 .team-modal-name {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     color: var(--cream);
     font-weight: 500;
@@ -2260,7 +2792,7 @@ a.info-value {
 }
 
 .team-modal-oab {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.75rem;
     color: var(--gold);
     text-transform: uppercase;
@@ -2271,7 +2803,7 @@ a.info-value {
 }
 
 .team-modal-specialty {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.9375rem;
     color: rgba(235, 230, 222, 0.7);
     line-height: 1.5;
@@ -2285,7 +2817,7 @@ a.info-value {
 }
 
 .team-modal-text {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.875rem;
     color: rgba(235, 230, 222, 0.85);
     line-height: 1.7;
@@ -2383,15 +2915,17 @@ a.info-value {
     }
 }
 
+/* Balao claro e redondo, mesma linguagem do painel (canto inferior-direito menor = */
+/* "cauda" apontando para o FAB circular). */
 .wa-tooltip {
     position: absolute;
     bottom: 80px;
     right: 0;
-    background-color: var(--blue);
-    border: 1px solid var(--border-dark);
+    background-color: #ffffff;
+    border: 1px solid rgba(178, 148, 116, 0.28);
     padding: 12px 18px;
-    border-radius: var(--radius-btn); /* 4px */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 18px 18px 6px 18px;
+    box-shadow: 0 14px 32px rgba(34, 34, 34, 0.16);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -2403,22 +2937,25 @@ a.info-value {
     z-index: 2;
 }
 
+/* pointer-events NAO entra aqui: precisa ficar restrito a .wa-widget.is-visible */
+/* (ver acima), senao o balao vira clicavel/hoverable mesmo invisivel durante o  */
+/* Hero -- ele e ativado por timeout de inatividade, independente do scroll, e   */
+/* bloqueava o hover do CTA "Conhecer Escritorio" no canto inferior-direito.     */
 .wa-tooltip.active {
     opacity: 1;
     transform: translateY(0) scale(1);
-    pointer-events: auto;
 }
 
 .wa-tooltip span {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
-    color: var(--cream);
+    color: var(--navy);
     font-weight: 500;
 }
 
 .wa-tooltip-close {
     font-size: 1.1rem;
-    color: rgba(235, 230, 222, 0.5);
+    color: rgba(34, 34, 34, 0.4);
     padding: 2px;
     line-height: 1;
     transition: color var(--t-snappy);
@@ -2426,25 +2963,27 @@ a.info-value {
 
 @media (hover: hover) and (pointer: fine) {
     .wa-tooltip-close:hover {
-        color: var(--gold);
+        color: var(--gold-hover);
     }
 }
 
+/* Painel claro em forma de balao de conversa: cantos generosos e o canto inferior- */
+/* direito menor apontando para o FAB redondo (linguagem circular do WhatsApp). */
 .wa-panel {
     position: absolute;
     bottom: 80px;
     right: 0;
-    width: 320px;
-    height: 400px;
-    background-color: var(--navy);
-    border: 1px solid var(--border-dark);
-    border-radius: var(--radius-card); /* 8px */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    width: 330px;
+    height: 420px;
+    background-color: #FBF8F3;
+    border: 1px solid rgba(178, 148, 116, 0.3);
+    border-radius: 26px 26px 10px 26px;
+    box-shadow: 0 24px 56px rgba(34, 34, 34, 0.22);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     opacity: 0;
-    transform: scale(0.95) translateY(15px);
+    transform: scale(0.92) translateY(15px);
     transform-origin: bottom right;
     transition: opacity var(--t-smooth), transform var(--t-smooth);
     pointer-events: none;
@@ -2463,16 +3002,34 @@ a.info-value {
     pointer-events: auto;
 }
 
+/* Mesmo motivo do .wa-tooltip.active acima: pointer-events fica so na regra */
+/* escopada em .wa-widget.is-visible, para nao criar hitbox invisivel no Hero. */
 .wa-panel.active {
     opacity: 1;
     transform: scale(1) translateY(0);
-    pointer-events: auto;
 }
 
 .wa-panel-header {
-    background-color: var(--blue);
-    padding: 20px;
-    border-bottom: 1px solid var(--border-dark);
+    background-color: #ffffff;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(178, 148, 116, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Avatar circular navy com o monograma AM dourado (eco do FAB redondo) */
+.wa-avatar {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: var(--navy);
+    background-image: url('logo-icon-gold.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 62% auto;
+    border: 1px solid rgba(178, 148, 116, 0.35);
 }
 
 .wa-brand {
@@ -2481,29 +3038,46 @@ a.info-value {
 }
 
 .wa-brand-name {
-    font-family: var(--font-serif);
-    font-size: 1.125rem;
-    color: var(--cream);
-    font-weight: 500;
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    color: var(--navy);
+    font-weight: 600;
 }
 
 .wa-brand-status {
-    font-family: var(--font-sans);
+    font-family: var(--font-ui);
     font-size: 0.6875rem;
-    color: var(--gold);
+    color: rgba(34, 34, 34, 0.55);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 2px;
+    letter-spacing: 0.06em;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Bolinha verde "online" pulsante */
+.wa-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #25D366;
+    animation: waStatusPulse 2.4s infinite ease-in-out;
+}
+
+@keyframes waStatusPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
+    50% { box-shadow: 0 0 0 4px rgba(37, 211, 102, 0); }
 }
 
 .wa-panel-body {
     flex-grow: 1;
-    padding: 20px;
+    padding: 18px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background-color: #1a1a1a;
+    background-color: #F2ECE3;
 }
 
 .wa-chat-area {
@@ -2533,27 +3107,31 @@ a.info-value {
     border-radius: 4px;
 }
 
+/* Bolhas de conversa reais: cantos redondos com um canto "de origem" menor */
 .wa-message {
     max-width: 85%;
     padding: 10px 14px;
-    border-radius: var(--radius-btn); /* 4px */
-    font-family: var(--font-sans);
+    border-radius: 16px;
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
-    line-height: 1.4;
+    line-height: 1.45;
 }
 
 .wa-msg-received {
-    background-color: var(--blue);
-    color: var(--cream);
+    background-color: #ffffff;
+    color: var(--navy);
     align-self: flex-start;
-    border-bottom-left-radius: 0;
+    border-top-left-radius: 6px;
+    border: 1px solid rgba(178, 148, 116, 0.18);
+    box-shadow: 0 2px 6px rgba(34, 34, 34, 0.05);
 }
 
 .wa-msg-sent {
-    background-color: var(--gold);
+    background-color: #E9DCC8;
     color: var(--navy);
     align-self: flex-end;
-    border-bottom-right-radius: 0;
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 2px 6px rgba(34, 34, 34, 0.05);
 }
 
 .wa-typing-dots {
@@ -2594,45 +3172,62 @@ a.info-value {
 
 .wa-faq-btn {
     text-align: left;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(178, 148, 116, 0.15);
-    color: var(--cream);
-    padding: 10px 14px;
+    background-color: #ffffff;
+    border: 1px solid rgba(178, 148, 116, 0.4);
+    color: var(--navy);
+    padding: 10px 16px;
     font-size: 0.75rem;
-    font-family: var(--font-sans);
-    border-radius: var(--radius-btn); /* 4px */
+    font-family: var(--font-ui);
+    font-weight: 500;
+    border-radius: 16px;
     transition: background-color var(--t-snappy), border-color var(--t-snappy), transform var(--t-snappy);
     cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .wa-faq-btn:hover {
-        background-color: rgba(178, 148, 116, 0.1);
+        background-color: rgba(178, 148, 116, 0.12);
         border-color: var(--gold);
         transform: translateY(-1px);
     }
 }
 
 .wa-panel-footer {
-    background-color: var(--blue);
-    padding: 15px;
-    border-top: 1px solid var(--border-dark);
+    background-color: #ffffff;
+    padding: 14px 18px;
+    border-top: 1px solid rgba(178, 148, 116, 0.22);
     display: flex;
     justify-content: center;
 }
 
+/* CTA em pilula verde WhatsApp: o unico bloco solido do painel claro */
 .wa-direct-link {
-    font-family: var(--font-sans);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background-color: #25D366;
+    font-family: var(--font-ui);
     font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--gold);
-    transition: color var(--t-snappy);
+    color: #ffffff;
+    transition: background-color var(--t-snappy), transform var(--t-snappy);
+}
+
+.wa-direct-link svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .wa-direct-link:hover {
-        color: var(--cream);
+        background-color: #1FBC59;
+        transform: translateY(-1px);
     }
 }

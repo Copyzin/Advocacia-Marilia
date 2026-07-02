@@ -14,13 +14,11 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>Advocacia Marília | Excelência e Tradição Jurídica</title>
     
-    <!-- Pré-carregamento e Fontes Premium -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Bodoni+Moda:opsz,wght@6..96,400..500&display=swap" rel="stylesheet">
+    <!-- Fontes self-hosted (fonts/): preload da fonte do titulo do hero (proxima do LCP) -->
+    <link rel="preload" href="fonts/Newsreader-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Estilos Principais -->
-    <link rel="stylesheet" href="style.css?v=14">
+    <link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 
@@ -45,16 +43,16 @@
                 <li><a href="#equipe" class="nav-item">Equipe</a></li>
                 <li><a href="#metodologia" class="nav-item">Metodologia</a></li>
                 <li><a href="#faq" class="nav-item">Dúvidas</a></li>
-                <li><a href="blog/" class="nav-item">Blog</a></li>
+                <li><a href="blog/" class="nav-item" data-dropdown="blog">Blog</a></li>
                 <li><a href="#contato" class="nav-item">Contato</a></li>
             </ul>
 
             <!-- CTA WhatsApp no header: unico caminho ao WhatsApp visivel durante o Hero, ja que o FAB fica oculto ate #sobre -->
-            <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="nav-whatsapp" aria-label="Fale conosco no WhatsApp">
+            <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="nav-whatsapp cta-anim" aria-label="Fale conosco no WhatsApp">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="nav-whatsapp-icon" aria-hidden="true">
                     <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                 </svg>
-                <span class="nav-whatsapp-text">Fale Conosco</span>
+                <span class="cta-label"><span class="cta-label-inner">Fale Conosco</span><span class="cta-label-inner" aria-hidden="true">Fale Conosco</span></span>
             </a>
         </div>
     </nav>
@@ -70,6 +68,12 @@
             <span class="hero-kicker reveal reveal-delay-1">Tradição e Ética desde 1986</span>
             <h1 class="hero-title reveal reveal-delay-2">Espaço jurídico de excelência, ética e compromisso com o seu direito.</h1>
             <p class="hero-subtitle reveal reveal-delay-3">Reunimos profissionais experientes e especializados de forma autônoma e independente. Prestamos assessoria técnica e personalizada para encontrar as melhores soluções.</p>
+            <!-- Mobile: o paragrafo sai de cena e entram 3 pontos compactos (hero enxuto) -->
+            <ul class="hero-points reveal reveal-delay-3">
+                <li>Tradição desde 1986</li>
+                <li>Especialistas independentes</li>
+                <li>Atendimento humanizado</li>
+            </ul>
             <a href="#sobre" class="hero-link reveal reveal-delay-4">
                 <span>Conhecer Escritório</span>
                 <svg class="hero-link-arrow" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -367,12 +371,12 @@
                     <div class="practice-card reveal reveal-delay-4">
                         <div class="card-number">04</div>
                         <h3 class="card-title">Direito Previdenciário</h3>
-                        <p class="card-desc">Orientação detalhada e planejamento previdenciário, encaminhamento de aposentadorias, concessão de benefícios assistenciais (BPC/LOAS) e recursos administrativos e judiciais.</p>
+                        <p class="card-desc">Orientação detalhada e planejamento previdenciário, encaminhamento de aposentadorias por idade, tempo de contribuição e invalidez, concessão de benefícios assistenciais (BPC/LOAS), pensão por morte, revisões de benefícios e recursos administrativos e judiciais junto ao INSS.</p>
                     </div>
                     <div class="practice-card reveal reveal-delay-5">
                         <div class="card-number">05</div>
                         <h3 class="card-title">Direito Administrativo</h3>
-                        <p class="card-desc">Assessoria em licitações e contratos com a administração pública, defesa em processos administrativos disciplinares (PAD) e representação perante órgãos reguladores.</p>
+                        <p class="card-desc">Assessoria em licitações e contratos com a administração pública, defesa em processos administrativos disciplinares (PAD), regularização de pendências junto a órgãos públicos e representação perante órgãos reguladores e tribunais de contas nas esferas municipal, estadual e federal.</p>
                     </div>
                     <div class="practice-card practice-card-media reveal reveal-delay-6">
                         <img src="fotoclosernamesaedocumentos.webp" alt="Detalhe de mesa com documentos jurídicos, caneta, óculos e celular durante análise contratual" class="card-media-img" loading="lazy">
@@ -412,13 +416,59 @@
 
                 <div class="method-featured reveal">
                     <div class="method-featured-content">
-                        <h4 class="featured-heading">Compromisso com Atendimento Humanizado</h4>
-                        <p class="featured-text">Nossos advogados operam com autonomia profissional, preservando a individualidade das relações e focando em soluções sob medida, com ética e cooperação constante.</p>
+                        <div class="featured-swap-blur" aria-hidden="true"></div>
+                        <div class="featured-swap-sharp" aria-hidden="true"></div>
+                        <h4 class="featured-heading">Atendimento Humanizado</h4>
+                        <p class="featured-text">Cada pessoa que chega até aqui traz uma história única, e é por ela que o atendimento começa. Você é recebido com escuta atenta, linguagem clara e o tempo necessário para compreender o seu caso, sem pressa e sem juridiquês.</p>
+                        <p class="featured-text">Nossos advogados preservam a individualidade de cada relação: o mesmo profissional acompanha você do primeiro contato à conclusão, com ética, sigilo e cooperação constante entre as especialidades do escritório.</p>
                     </div>
                     <div class="method-featured-media">
-                        <img src="compromisso_humanizado.webp" alt="Advogado atendendo cliente no escritório Advocacia Marília" class="featured-img" loading="lazy">
+                        <img src="compromisso_atendimento.webp" alt="Advogada atendendo cliente no escritório Advocacia Marília" class="featured-img" loading="lazy">
+                        <div class="featured-hover-panel">
+                            <h4 class="featured-heading">O Atendimento é um Compromisso</h4>
+                            <p class="featured-text">Presença nas reuniões, retorno claro e acompanhamento próximo: do primeiro contato à conclusão do seu caso.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: BLOG / INFORMAÇÃO -->
+        <section class="blog" id="blog">
+            <div class="section-container">
+                <div class="blog-header">
+                    <span class="section-kicker">Informativo Jurídico</span>
+                    <h2 class="section-title">Artigos e análises da nossa equipe de advogados.</h2>
+                </div>
+
+                <div class="blog-grid">
+                    <article class="blog-card reveal reveal-delay-1">
+                        <span class="blog-date">15 de Junho, 2026</span>
+                        <h3 class="blog-card-title">Planejamento previdenciário: como garantir uma aposentadoria segura</h3>
+                        <p class="blog-card-author">Por Dra. Carina Alves · OAB/SP 266.124</p>
+                        <p class="blog-card-excerpt">Entenda a importância de planejar a sua aposentadoria com antecedência, analisando as regras de transição e calculando o melhor momento para o requerimento.</p>
+                        <a href="blog/planejamento-previdenciario/" class="blog-read-more" aria-label="Ler artigo completo sobre Planejamento Previdenciário">Ler artigo completo</a>
+                    </article>
+                    <article class="blog-card reveal reveal-delay-2">
+                        <span class="blog-date">02 de Junho, 2026</span>
+                        <h3 class="blog-card-title">Inventário extrajudicial: o caminho mais rápido para a partilha de bens</h3>
+                        <p class="blog-card-author">Por Dra. Patrícia Sausanavicius · OAB/SP 263.193</p>
+                        <p class="blog-card-excerpt">Saiba como realizar a partilha de bens de forma ágil através de cartório de notas, economizando tempo e evitando o desgaste de um processo judicial demorado.</p>
+                        <a href="blog/inventario-extrajudicial/" class="blog-read-more" aria-label="Ler artigo completo sobre Inventário Extrajudicial">Ler artigo completo</a>
+                    </article>
+                    <article class="blog-card reveal reveal-delay-3">
+                        <span class="blog-date">24 de Maio, 2026</span>
+                        <h3 class="blog-card-title">Contratos imobiliários: cuidados essenciais antes de assinar a compra</h3>
+                        <p class="blog-card-author">Por Dr. Mauri Ortega · OAB/SP 130.638</p>
+                        <p class="blog-card-excerpt">Descubra as principais cláusulas que devem ser revisadas por um advogado de confiança para prevenir fraudes, atrasos e dores de cabeça futuras.</p>
+                        <a href="blog/contratos-imobiliarios-compra-segura/" class="blog-read-more" aria-label="Ler artigo completo sobre Contratos Imobiliários">Ler artigo completo</a>
+                    </article>
+                </div>
+
+                <a href="blog/" class="blog-all-link">
+                    Ver todos os artigos
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
             </div>
         </section>
 
@@ -429,7 +479,7 @@
                     <span class="section-kicker">Perguntas Frequentes</span>
                     <h2 class="section-title">Dúvidas comuns sobre nossos serviços.</h2>
                 </div>
-                
+
                 <div class="faq-list">
                     <div class="faq-item reveal reveal-delay-1">
                         <button class="faq-question" aria-expanded="false">
@@ -479,45 +529,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: BLOG / INFORMAÇÃO -->
-        <section class="blog" id="blog">
-            <div class="section-container">
-                <div class="blog-header">
-                    <span class="section-kicker">Informativo Jurídico</span>
-                    <h2 class="section-title">Artigos e análises da nossa equipe de advogados.</h2>
-                </div>
-                
-                <div class="blog-grid">
-                    <article class="blog-card reveal reveal-delay-1">
-                        <span class="blog-date">15 de Junho, 2026</span>
-                        <h3 class="blog-card-title">Planejamento previdenciário: como garantir uma aposentadoria segura</h3>
-                        <p class="blog-card-author">Por Dra. Carina Alves · OAB/SP 266.124</p>
-                        <p class="blog-card-excerpt">Entenda a importância de planejar a sua aposentadoria com antecedência, analisando as regras de transição e calculando o melhor momento para o requerimento.</p>
-                        <a href="blog/planejamento-previdenciario/" class="blog-read-more" aria-label="Ler artigo completo sobre Planejamento Previdenciário">Ler artigo completo</a>
-                    </article>
-                    <article class="blog-card reveal reveal-delay-2">
-                        <span class="blog-date">02 de Junho, 2026</span>
-                        <h3 class="blog-card-title">Inventário extrajudicial: o caminho mais rápido para a partilha de bens</h3>
-                        <p class="blog-card-author">Por Dra. Patrícia Sausanavicius · OAB/SP 263.193</p>
-                        <p class="blog-card-excerpt">Saiba como realizar a partilha de bens de forma ágil através de cartório de notas, economizando tempo e evitando o desgaste de um processo judicial demorado.</p>
-                        <a href="blog/inventario-extrajudicial/" class="blog-read-more" aria-label="Ler artigo completo sobre Inventário Extrajudicial">Ler artigo completo</a>
-                    </article>
-                    <article class="blog-card reveal reveal-delay-3">
-                        <span class="blog-date">24 de Maio, 2026</span>
-                        <h3 class="blog-card-title">Contratos imobiliários: cuidados essenciais antes de assinar a compra</h3>
-                        <p class="blog-card-author">Por Dr. Mauri Ortega · OAB/SP 130.638</p>
-                        <p class="blog-card-excerpt">Descubra as principais cláusulas que devem ser revisadas por um advogado de confiança para prevenir fraudes, atrasos e dores de cabeça futuras.</p>
-                        <a href="blog/contratos-imobiliarios-compra-segura/" class="blog-read-more" aria-label="Ler artigo completo sobre Contratos Imobiliários">Ler artigo completo</a>
-                    </article>
-                </div>
-
-                <a href="blog/" class="blog-all-link">
-                    Ver todos os artigos
-                    <span aria-hidden="true">&rarr;</span>
-                </a>
-            </div>
-        </section>
-
         <!-- SEÇÃO 6: CTA FINAL -->
         <section class="cta" id="contato">
             <div class="section-container">
@@ -537,7 +548,7 @@
                         </div>
                     </div>
 
-                    <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Enviar Mensagem via WhatsApp</a>
+                    <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large cta-anim"><span class="cta-label"><span class="cta-label-inner">Enviar Mensagem via WhatsApp</span><span class="cta-label-inner" aria-hidden="true">Enviar Mensagem via WhatsApp</span></span></a>
                 </div>
             </div>
         </section>
@@ -588,9 +599,10 @@
         <!-- Painel de Chat Flutuante -->
         <div class="wa-panel" id="waPanel" role="dialog" aria-label="Atendimento Advocacia Marília">
             <header class="wa-panel-header">
+                <span class="wa-avatar" aria-hidden="true"></span>
                 <div class="wa-brand">
                     <span class="wa-brand-name">Advocacia Marília</span>
-                    <span class="wa-brand-status">Atendimento Digital</span>
+                    <span class="wa-brand-status"><span class="wa-status-dot" aria-hidden="true"></span>Atendimento Digital</span>
                 </div>
             </header>
             
@@ -611,7 +623,10 @@
             </div>
 
             <footer class="wa-panel-footer">
-                <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="wa-direct-link">Falar no WhatsApp</a>
+                <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="wa-direct-link">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    Falar no WhatsApp
+                </a>
             </footer>
         </div>
     </div>
@@ -638,6 +653,7 @@
     </div>
 
     <!-- Scripts Principais -->
-    <script src="script.js?v=4"></script>
+    <script src="lenis.min.js" defer></script>
+    <script src="script.js?v=8" defer></script>
 </body>
 </html>

@@ -5,15 +5,39 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initLenis();
     initNavbarVisibility();
     initFaqAccordion();
     initMobileMenu();
+    initNavDropdowns();
     initSmoothScrolling();
     initScrollReveal();
+    initFeaturedParallax();
     initWhatsAppWidget();
     initWhatsAppFabVisibility();
     initTeamModal();
 });
+
+/**
+ * 0. LENIS SMOOTH SCROLL (site inteiro)
+ * Config validada no projeto Solia: lerp 0.1 = suavidade controlada, sem "lag"
+ * nem inercia solta. Touch fica nativo (default do Lenis). Respeita
+ * prefers-reduced-motion e degrada em silencio se a lib nao carregar.
+ */
+function initLenis() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (typeof window.Lenis === 'undefined') return;
+
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1 });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    window.__lenis = lenis;
+}
 
 /**
  * 1. NAVBAR INTELIGENTE (esconde ao descer, reaparece ao subir)
@@ -113,6 +137,7 @@ function initMobileMenu() {
     menuToggle.addEventListener('click', () => {
         const isActive = menuToggle.classList.toggle('active');
         navLinks.classList.toggle('active');
+        document.body.classList.toggle('menu-open', isActive); // overlay escurecedor (CSS body::before)
         menuToggle.setAttribute('aria-expanded', isActive);
     });
 
@@ -121,7 +146,116 @@ function initMobileMenu() {
         item.addEventListener('click', () => {
             menuToggle.classList.remove('active');
             navLinks.classList.remove('active');
+            document.body.classList.remove('menu-open');
             menuToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+}
+
+/**
+ * 3.5. DROPDOWN DE CATEGORIAS NO MENU (BLOG)
+ * So desktop (Dropdown Patterns.md, origem HAAS): injeta o submenu por JS a partir
+ * de um mapa MENUS. Chave por data-dropdown (nao por href): o href do link "Blog"
+ * muda de profundidade entre a home (blog/) e as paginas internas (../blog/,
+ * ../../blog/), entao o link de cada categoria e montado em cima do href REAL do
+ * gatilho (+ "#" + id), o que ja resolve certo em qualquer profundidade.
+ * Categorias espelham CATEGORIES de tools/build-blog.mjs: atualize os dois juntos
+ * se uma area de atuacao mudar. Hover tolerante (dwell/close delay), um aberto por
+ * vez, acessivel por teclado (foco abre, Esc fecha). display:contents no mobile
+ * (CSS) neutraliza o wrapper: sem dropdown reaproveitado no drawer.
+ * Caret = <span class="nav-caret"> injetado (NUNCA ::after: o .nav-item ja usa
+ * ::after pro sublinhado do hover, e reaproveitar o pseudo-elemento faz o
+ * quadradinho herdar position/transform do sublinhado e nascer fora do lugar).
+ */
+function initNavDropdowns() {
+    const nav = document.getElementById('navLinks');
+    if (!nav) return;
+
+    const MENUS = {
+        blog: {
+            eyebrow: 'Categorias',
+            items: [
+                { id: 'previdenciario', label: 'Direito Previdenciário', sub: 'Aposentadorias, benefícios e planejamento junto ao INSS.' },
+                { id: 'familia-sucessoes', label: 'Família e Sucessões', sub: 'Inventários, partilhas, divórcios e planejamento sucessório.' },
+                { id: 'imobiliario', label: 'Direito Imobiliário', sub: 'Compra e venda, locações e regularização de imóveis.' },
+                { id: 'trabalhista', label: 'Direito do Trabalho', sub: 'Relações de emprego, verbas e prevenção de litígios.' },
+                { id: 'penal', label: 'Direito Penal e Execução Penal', sub: 'Defesa criminal, flagrantes e direitos na execução da pena.' },
+                { id: 'civil-consumidor', label: 'Civil e Consumidor', sub: 'Contratos, cobranças e relações de consumo.' },
+            ],
+        },
+    };
+
+    const OPEN_DELAY = 120;   // ms -- exige dwell; flick de passagem nao abre
+    const CLOSE_DELAY = 220;  // ms -- tolerancia ao sair; re-entrada cancela
+
+    const controllers = [];
+    const closeOthers = (except) => controllers.forEach((c) => { if (c !== except) c.closeNow(); });
+
+    nav.querySelectorAll('a[data-dropdown]').forEach((trigger) => {
+        const menu = MENUS[trigger.dataset.dropdown];
+        if (!menu) return;
+
+        const base = trigger.getAttribute('href'); // ja vem certo pra profundidade da pagina
+
+        const group = document.createElement('span');
+        group.className = 'nav-group';
+        trigger.parentNode.insertBefore(group, trigger);
+        group.appendChild(trigger);
+        trigger.classList.add('nav-group__trigger');
+        trigger.setAttribute('aria-haspopup', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.insertAdjacentHTML('beforeend', '<span class="nav-caret" aria-hidden="true"></span>');
+
+        const itemsHTML = menu.items.map((it) =>
+            '<a class="nav-dropdown__item" href="' + base + '#' + it.id + '" role="menuitem">' +
+                '<span class="nav-dropdown__label">' + it.label + '</span>' +
+                '<span class="nav-dropdown__sub">' + it.sub + '</span>' +
+            '</a>'
+        ).join('');
+
+        const panel = document.createElement('div');
+        panel.className = 'nav-dropdown';
+        panel.setAttribute('role', 'menu');
+        panel.innerHTML =
+            '<div class="nav-dropdown__inner">' +
+                '<p class="nav-dropdown__eyebrow">' + menu.eyebrow + '</p>' + itemsHTML +
+            '</div>';
+        group.appendChild(panel);           // painel e FILHO do grupo (hover tolerante)
+
+        let openT = null, closeT = null;
+        const isOpen  = () => group.classList.contains('is-open');
+        const showNow = () => {
+            clearTimeout(openT); clearTimeout(closeT);
+            closeOthers(ctrl);               // exclusao mutua: fecha os outros JA
+            group.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+        };
+        const closeNow = () => {
+            clearTimeout(openT); clearTimeout(closeT);
+            group.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+        };
+        const ctrl = { closeNow };
+        controllers.push(ctrl);
+
+        group.addEventListener('mouseenter', () => {
+            clearTimeout(closeT);            // re-entrada rapida cancela o fechamento
+            if (isOpen()) return;
+            clearTimeout(openT);
+            openT = setTimeout(showNow, OPEN_DELAY);
+        });
+        group.addEventListener('mouseleave', () => {
+            clearTimeout(openT);             // cancela abertura pendente (flick)
+            if (isOpen()) { clearTimeout(closeT); closeT = setTimeout(closeNow, CLOSE_DELAY); }
+        });
+
+        // Teclado: foco abre na hora (sem dwell); Esc fecha e devolve o foco.
+        group.addEventListener('focusin', () => { clearTimeout(closeT); showNow(); });
+        group.addEventListener('focusout', (e) => {
+            if (!group.contains(e.relatedTarget)) { clearTimeout(closeT); closeT = setTimeout(closeNow, CLOSE_DELAY); }
+        });
+        group.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { closeNow(); trigger.focus(); }
         });
     });
 }
@@ -141,11 +275,16 @@ function initSmoothScrolling() {
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
+                if (window.__lenis) {
+                    // offset -80 replica o scroll-padding-top da navbar fixa
+                    window.__lenis.scrollTo(targetElement, { offset: -80, duration: 1.1, force: true });
+                } else {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+
                 // Atualiza o foco de acessibilidade
                 targetElement.setAttribute('tabindex', '-1');
                 targetElement.focus({ preventScroll: true });
@@ -182,6 +321,44 @@ function initScrollReveal() {
     revealElements.forEach(element => {
         revealObserver.observe(element);
     });
+}
+
+/**
+ * 5.2. PARALLAX SUTIL DA FOTO DO CARD "COMPROMISSO" (Abordagem de Trabalho)
+ * A foto e 8% mais alta que o quadro (CSS: height 108% / top -4%) e desliza
+ * ate +-4% conforme o card cruza o viewport. Head-safe: o deslocamento maximo
+ * corta no maximo 3.7% do topo da imagem, abaixo da margem de 5.5% que o crop
+ * guarda acima do cabelo da advogada. rAF + scroll passivo (sem jank).
+ */
+function initFeaturedParallax() {
+    const media = document.querySelector('.method-featured-media');
+    const img = media ? media.querySelector('.featured-img') : null;
+    if (!media || !img) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let ticking = false;
+
+    function update() {
+        ticking = false;
+        const r = media.getBoundingClientRect();
+        const vh = window.innerHeight;
+        if (r.bottom < 0 || r.top > vh) return;
+        // Progresso -1..1 do centro do quadro em relacao ao centro do viewport
+        const p = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
+        const range = r.height * 0.04;
+        img.style.transform = 'translateY(' + (-p * range).toFixed(1) + 'px)';
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
 }
 
 /**

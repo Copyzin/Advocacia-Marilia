@@ -1,0 +1,81 @@
+# ============================================================
+# Advocacia Marilia - configuracao Apache (Hostinger)
+# Site 100% estatico. Blog: pastas com index.html (blog/<slug>/index.html),
+# servidas nativamente pelo Apache -- sem necessidade de rewrite para URL limpa.
+# ============================================================
+
+# ---------- Charset padrao ----------
+AddDefaultCharset utf-8
+<IfModule mod_mime.c>
+  AddCharset utf-8 .html .css .js .svg
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+</IfModule>
+
+# ---------- Documento padrao ----------
+DirectoryIndex index.html
+
+# ---------- Sem listagem de diretorio ----------
+Options -Indexes
+
+# ---------- Forcar HTTPS ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---------- Compressao (gzip) ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript text/javascript application/json image/svg+xml application/xml font/woff2
+</IfModule>
+
+# ---------- Cache dos assets ----------
+# style.css e script.js usam cache busting via ?v=N no HTML -> podem ter cache
+# longo e imutavel. HTML sempre revalida, para que edicoes de conteudo (inclusive
+# artigos gerados por tools/build-blog.mjs) apareçam assim que forem publicadas.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|webp|png|jpe?g|gif|svg|ico|woff2|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # Cabecalhos de seguranca basicos
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# ---------- Bloqueia a pasta do gerador do blog (uso local/dev, nao runtime) ----------
+<IfModule mod_rewrite.c>
+  RewriteRule ^tools/ - [F,L]
+</IfModule>
+
+# ---------- Bloqueia documentos internos (caso subam por engano via upload manual) ----------
+# Ja ficam de fora do git (.gitignore), mas isto e uma segunda camada de protecao
+# caso a pasta inteira seja enviada por FTP/Gerenciador de Arquivos da Hostinger.
+<FilesMatch "\.(md|pdf|docx?|mjs)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
