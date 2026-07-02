@@ -1669,28 +1669,31 @@ address {
     }
 }
 
-/* GATILHO: a foto da direita. Coreografia de entrada sequenciada -- o texto SAI     */
-/* primeiro (imediato), o blur ENTRA levemente atrasado, o nitido foca por ultimo.   */
-/* A saida espelha: nitido desfoca, blur dissolve, texto de repouso volta por ultimo */
-/* (delay nas regras-base de cada camada). */
+/* GATILHO: a classe .is-inverted, escrita pelo JS (initFeaturedInvert) -- NAO :hover  */
+/* cru. Coreografias com delay escalonado congelam pela metade quando o :hover reverte */
+/* no meio da sequencia (camada parada esperando o proprio delay); o JS aplica         */
+/* intencao (hover sustentado inicia), trava (a entrada sempre COMPLETA antes de       */
+/* poder reverter) e graca na saida (re-entrada rapida cancela a reversao).            */
+/* Coreografia de entrada: texto SAI primeiro, blur entra atrasado, nitido foca por    */
+/* ultimo. Saida espelhada nas regras-base de cada camada. */
 @media (hover: hover) and (pointer: fine) {
-    .method-featured:has(.method-featured-media:hover) .method-featured-content .featured-heading,
-    .method-featured:has(.method-featured-media:hover) .method-featured-content .featured-text {
+    .method-featured.is-inverted .method-featured-content .featured-heading,
+    .method-featured.is-inverted .method-featured-content .featured-text {
         opacity: 0;
         transition: opacity 0.35s var(--ease-premium);
     }
 
-    .method-featured:has(.method-featured-media:hover) .featured-swap-blur {
+    .method-featured.is-inverted .featured-swap-blur {
         opacity: 1;
         transition: opacity 0.5s var(--ease-premium) 0.2s;
     }
 
-    .method-featured:has(.method-featured-media:hover) .featured-swap-sharp {
+    .method-featured.is-inverted .featured-swap-sharp {
         opacity: 1;
         transition: opacity 1s var(--ease-premium) 0.45s;
     }
 
-    .method-featured:has(.method-featured-media:hover) .featured-hover-panel {
+    .method-featured.is-inverted .featured-hover-panel {
         opacity: 1;
         transform: translateY(0);
         transition: opacity 0.8s var(--ease-premium) 0.3s, transform 0.8s var(--ease-premium) 0.3s;
@@ -3074,6 +3077,7 @@ a.info-value {
     flex-grow: 1;
     padding: 18px;
     overflow-y: auto;
+    overscroll-behavior-y: contain; /* trava o scroll no painel: nao "vaza" pro site atras dele no fim do curso */
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -3084,9 +3088,20 @@ a.info-value {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+/* Preenchimento/scroll proprio so entram enquanto a lista de perguntas esta   */
+/* oculta (conversa em andamento, classe ligada/desligada pelo JS junto com    */
+/* o display:none/flex do wa-faq-list). Fixos sempre-on deixavam um vao vazio  */
+/* em repouso (com so a saudacao inicial): flex-grow esticava a area toda, e   */
+/* o min-height sozinho ja bastava pra sobrar espaco atras de uma mensagem     */
+/* curta. Em repouso o chat-area agora so ocupa a altura do proprio conteudo   */
+/* (o wa-panel-body, que ja tem overflow-y:auto, rola tudo junto se precisar). */
+.wa-chat-area.wa-chat-area--full {
     flex-grow: 1;
     min-height: 140px; /* impede colapso a 0px: flexbox encolhe overflow:auto antes de overflow:visible (wa-faq-list) */
     overflow-y: auto;
+    overscroll-behavior-y: contain;
 }
 
 /* Estilização Premium e Unificada de Scrollbar (Sem quebras de design) */

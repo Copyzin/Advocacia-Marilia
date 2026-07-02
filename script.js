@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavDropdowns();
     initSmoothScrolling();
     initScrollReveal();
+    initFeaturedInvert();
     initFeaturedParallax();
     initWhatsAppWidget();
     initWhatsAppFabVisibility();
@@ -23,12 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
  * Config validada no projeto Solia: lerp 0.1 = suavidade controlada, sem "lag"
  * nem inercia solta. Touch fica nativo (default do Lenis). Respeita
  * prefers-reduced-motion e degrada em silencio se a lib nao carregar.
+ * "prevent" exclui o painel do WhatsApp: sem isso o Lenis captura o wheel em
+ * QUALQUER lugar da pagina (inclusive sobre o painel aberto) e rola o site
+ * por baixo dele em vez do conteudo interno do chat.
  */
 function initLenis() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (typeof window.Lenis === 'undefined') return;
 
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1 });
+    const lenis = new Lenis({
+        lerp: 0.1,
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        prevent: (node) => node.closest('.wa-panel'),
+    });
 
     function raf(time) {
         lenis.raf(time);
@@ -324,6 +333,52 @@ function initScrollReveal() {
 }
 
 /**
+ * 5.1. INVERSAO DO CARD "COMPROMISSO" (Abordagem de Trabalho)
+ * Substitui o gatilho :hover cru por uma maquina de estados com 3 protecoes,
+ * porque a coreografia usa delays escalonados e delays congelam pela metade
+ * quando o hover reverte no meio da sequencia:
+ *   1. INTENCAO (90ms): so inverte com hover sustentado -- tangenciar a borda
+ *      do card com o cursor nao dispara nada.
+ *   2. TRAVA (1000ms): uma vez iniciada, a entrada COMPLETA antes de poder
+ *      reverter -- a animacao nunca para no meio, mesmo se o cursor sair.
+ *   3. GRACA (220ms): ao sair, a reversao espera um instante -- re-entrada
+ *      rapida cancela a saida sem nenhum piscar.
+ * Mesmo padrao de tolerancia do chat do WhatsApp (whatsapp-bubble-button par. 7b).
+ */
+function initFeaturedInvert() {
+    const card = document.querySelector('.method-featured');
+    const media = card ? card.querySelector('.method-featured-media') : null;
+    if (!card || !media) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const ENTER_INTENT = 90;
+    const EXIT_GRACE = 220;
+    const MIN_HOLD = 1000;
+
+    let enterTimer = null;
+    let exitTimer = null;
+    let holdUntil = 0;
+
+    media.addEventListener('pointerenter', () => {
+        clearTimeout(exitTimer);
+        if (card.classList.contains('is-inverted')) return;
+        clearTimeout(enterTimer);
+        enterTimer = setTimeout(() => {
+            card.classList.add('is-inverted');
+            holdUntil = performance.now() + MIN_HOLD;
+        }, ENTER_INTENT);
+    });
+
+    media.addEventListener('pointerleave', () => {
+        clearTimeout(enterTimer);
+        clearTimeout(exitTimer);
+        if (!card.classList.contains('is-inverted')) return;
+        const wait = Math.max(EXIT_GRACE, holdUntil - performance.now());
+        exitTimer = setTimeout(() => card.classList.remove('is-inverted'), wait);
+    });
+}
+
+/**
  * 5.2. PARALLAX SUTIL DA FOTO DO CARD "COMPROMISSO" (Abordagem de Trabalho)
  * A foto e 8% mais alta que o quadro (CSS: height 108% / top -4%) e desliza
  * ate +-4% conforme o card cruza o viewport. Head-safe: o deslocamento maximo
@@ -549,7 +604,8 @@ function setupWhatsAppChat(elements, state) {
 
 function handleFaqClick(id, questionText, answerText, elements) {
     elements.faqList.style.display = 'none';
-    
+    elements.chatArea.classList.add('wa-chat-area--full'); // sem a lista, chat preenche o painel
+
     const userMsg = document.createElement('div');
     userMsg.className = 'wa-message wa-msg-sent';
     userMsg.innerHTML = `<p>${questionText}</p>`;
@@ -588,6 +644,7 @@ function renderFaqResponse(typingElement, answerText, elements) {
 
     setTimeout(() => {
         elements.faqList.style.display = 'flex';
+        elements.chatArea.classList.remove('wa-chat-area--full'); // lista de volta: chat volta a so ocupar o proprio conteudo
         elements.chatArea.scrollTop = elements.chatArea.scrollHeight;
     }, 300);
 }

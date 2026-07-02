@@ -8,8 +8,8 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const CSS_V = 23;
-const JS_V = 8;
+const CSS_V = 27;
+const JS_V = 11;
 const WA = 'https://wa.me/551434138384';
 
 // Ponto focal do rosto por foto (object-position/zoom do thumbnail do autor).
@@ -295,12 +295,11 @@ function chrome(depth, { title, description, bodyClass, content, ogType }) {
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="${p}index.html" class="nav-item">Início</a></li>
-                <li><a href="${p}index.html#sobre" class="nav-item">O Escritório</a></li>
-                <li><a href="${p}index.html#atuacao" class="nav-item">Especialidades</a></li>
                 <li><a href="${p}index.html#equipe" class="nav-item">Equipe</a></li>
-                <li><a href="${p}index.html#faq" class="nav-item">Dúvidas</a></li>
+                <li><a href="${p}index.html#atuacao" class="nav-item">Especialidades</a></li>
+                <li><a href="${p}index.html#metodologia" class="nav-item">Metodologia</a></li>
                 <li><a href="${p}blog/" class="nav-item" data-dropdown="blog">Blog</a></li>
-                <li><a href="${p}index.html#contato" class="nav-item">Contato</a></li>
+                <li><a href="${p}index.html#faq" class="nav-item">Dúvidas</a></li>
             </ul>
 
             <a href="${WA}" target="_blank" rel="noopener noreferrer" class="nav-whatsapp cta-anim" aria-label="Fale conosco no WhatsApp">
