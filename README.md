@@ -53,18 +53,32 @@ advocacia-marilia/
 ├── lenis.min.js                # Lib de scroll suave (vendorizada, sem CDN)
 ├── .htaccess                   # Config Apache/Hostinger (cache, gzip, HTTPS, headers)
 ├── fonts/                      # Fontes self-hosted (.woff2)
-├── curriculoseadvogados/       # Fotos + mini-currículos dos advogados (equipe)
+├── assets/
+│   └── images/                 # TODAS as imagens do site (ver tabela abaixo)
+│       └── equipe/             # Retratos dos advogados (usados na home e nos artigos do blog)
+├── curriculoseadvogados/       # So os mini-curriculos em .docx/.doc (gitignored, uso interno) -- as fotos moraram para assets/images/equipe/
 ├── blog/                       # GERADO por tools/build-blog.mjs — não editar os .html aqui na mão
 │   ├── index.html              # Hub do blog, com uma seção por categoria (id="<categoria>")
 │   └── <slug>/index.html        # Uma pasta por artigo
 ├── tools/
 │   └── build-blog.mjs          # Gerador do blog (fonte única: ARTICLES + CATEGORIES no topo do arquivo)
-├── *.png / *.webp               # Imagens do site (favicons, fotos de seção)
 ├── docs/specs/                 # Specs internas de sessões de trabalho (gitignored, não sobe)
 └── README.md                   # Este arquivo
 ```
 
 **Importante:** `blog/**/index.html` são **arquivos gerados**. Qualquer edição de texto de artigo, categoria ou do "chrome" (header/footer/menu compartilhado) deve ser feita em `tools/build-blog.mjs`, seguida de `node tools/build-blog.mjs` para regravar os HTMLs — nunca edite os HTMLs do blog diretamente, a próxima geração sobrescreve.
+
+### Imagens (`assets/images/`)
+
+Toda imagem do site — favicons, logo, fotos de seção e os retratos da equipe — mora em `assets/images/` (retratos em `assets/images/equipe/`). Pasta única e achatada de propósito: para trocar uma foto durante o deploy (ex.: direto pelo Gerenciador de Arquivos da Hostinger), não é preciso caçar o arquivo pelo projeto inteiro.
+
+| Se for trocar... | Está em | Referenciada em |
+|---|---|---|
+| Logo, favicons | `assets/images/*.png`, `logo-icon-gold.webp` | `index.html`, `tools/build-blog.mjs` (`chrome()`), `style.css` (avatar do widget) |
+| Fotos das seções (hero, Sobre, Especialidades, Metodologia) | `assets/images/*.webp` | `index.html`, `style.css` (as duas do swap blur/nítido em Metodologia) |
+| Retrato de um advogado | `assets/images/equipe/<nome>.webp` | `index.html` (grade da Equipe) e nos artigos do blog cujo autor seja essa pessoa (`tools/build-blog.mjs`, campo `photo` em `ARTICLES`) |
+
+**Ao trocar uma foto:** mantenha o **mesmo nome de arquivo** (mais simples — não exige editar HTML/CSS/JS) ou, se o nome mudar, atualize a(s) referência(s) na tabela acima. Fotos da equipe **não precisam** de bump de `?v=N` (não passam pelo cache-busting do CSS/JS); trocar o arquivo já reflete no próximo carregamento. Há também alguns `.png` "órfãos" em `assets/images/` (ex. `compromisso_humanizado.png`, `fotoatendendo.png`) — são versões anteriores já substituídas pelos `.webp` equivalentes; ficaram guardados ali, não são carregados pelo site.
 
 ---
 
@@ -103,15 +117,15 @@ Abra `http://localhost:8080/` no navegador. Para editar o blog, veja a seção [
 
 `style.css` e `script.js` são carregados com `?v=N`. Depois de **qualquer** edição em um dos dois:
 
-1. Incremente o número de versão em `index.html`:
+1. Incremente o número de versão em `index.html` (o valor atual está sempre nessas duas linhas):
    ```html
-   <link rel="stylesheet" href="style.css?v=24">
-   <script src="script.js?v=9" defer></script>
+   <link rel="stylesheet" href="style.css?v=N">
+   <script src="script.js?v=N" defer></script>
    ```
-2. Se a edição afeta o CSS/JS compartilhado, **também** incremente `CSS_V`/`JS_V` no topo de `tools/build-blog.mjs`:
+2. Se a edição afeta o CSS/JS compartilhado, **também** incremente `CSS_V`/`JS_V` no topo de `tools/build-blog.mjs` (mesmo valor novo de `index.html`):
    ```js
-   const CSS_V = 24;
-   const JS_V = 9;
+   const CSS_V = N;
+   const JS_V = N;
    ```
 3. Rode `node tools/build-blog.mjs` para regravar as páginas do blog com a versão nova.
 
@@ -152,9 +166,9 @@ public_html/
 ├── lenis.min.js
 ├── .htaccess
 ├── fonts/
-├── curriculoseadvogados/
-├── blog/
-└── *.png / *.webp
+├── assets/images/
+├── curriculoseadvogados/   (so os .docx internos ficam la -- ja bloqueados por .htaccess)
+└── blog/
 ```
 
 ### Opção 1 — Gerenciador de Arquivos (hPanel)

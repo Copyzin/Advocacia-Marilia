@@ -1586,12 +1586,12 @@ address {
 
 /* Saida (sem hover): o nitido desfoca rapido e o blur segura um instante antes de sumir */
 .featured-swap-blur {
-    background-image: url('compromisso_reuniao_blur.webp');
+    background-image: url('assets/images/compromisso_reuniao_blur.webp');
     transition: opacity 0.6s var(--ease-premium) 0.15s;
 }
 
 .featured-swap-sharp {
-    background-image: url('compromisso_reuniao.webp');
+    background-image: url('assets/images/compromisso_reuniao.webp');
     transition: opacity 0.45s var(--ease-premium);
 }
 
@@ -3028,7 +3028,7 @@ a.info-value {
     height: 42px;
     border-radius: 50%;
     background-color: var(--navy);
-    background-image: url('logo-icon-gold.webp');
+    background-image: url('assets/images/logo-icon-gold.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 62% auto;

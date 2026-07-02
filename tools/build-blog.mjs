@@ -8,7 +8,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const CSS_V = 27;
+const CSS_V = 28;
 const JS_V = 11;
 const WA = 'https://wa.me/551434138384';
 
@@ -270,9 +270,9 @@ function chrome(depth, { title, description, bodyClass, content, ogType }) {
     <meta property="og:title" content="${title}">
     <meta property="og:description" content="${description}">
     <meta property="og:locale" content="pt_BR">
-    <link rel="icon" type="image/png" sizes="32x32" href="${p}favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="${p}favicon-16x16.png">
-    <link rel="apple-touch-icon" href="${p}apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${p}assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${p}assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="${p}assets/images/apple-touch-icon.png">
     <title>${title}</title>
 
     <link rel="preload" href="${p}fonts/WorkSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
@@ -284,7 +284,7 @@ function chrome(depth, { title, description, bodyClass, content, ogType }) {
     <nav class="navbar scrolled" id="navbar">
         <div class="nav-container">
             <a href="${p}index.html" class="nav-logo" aria-label="Advocacia Marília - Voltar ao início">
-                <img src="${p}logo.png" alt="Logo Advocacia Marília" class="logo-img">
+                <img src="${p}assets/images/logo.png" alt="Logo Advocacia Marília" class="logo-img">
             </a>
 
             <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navLinks">
@@ -317,7 +317,7 @@ ${content}
         <div class="footer-container">
             <div class="footer-top">
                 <a href="${p}index.html" class="footer-logo" aria-label="Advocacia Marília - Voltar ao início">
-                    <img src="${p}logo.png" alt="Logo Advocacia Marília" class="logo-img-footer">
+                    <img src="${p}assets/images/logo.png" alt="Logo Advocacia Marília" class="logo-img-footer">
                 </a>
                 <ul class="footer-nav">
                     <li><a href="${p}index.html">Início</a></li>
@@ -446,7 +446,7 @@ ${a.body.trim()}
             <div class="article-author">
                 <span class="article-author-frame">
                     <span class="article-author-crop">
-                        <img src="../../curriculoseadvogados/${a.author.photo}" alt="${a.author.name}" class="article-author-photo" loading="lazy" style="--fx:${(FACE_FOCUS[a.author.photo] || {}).fx || '50%'};--fy:${(FACE_FOCUS[a.author.photo] || {}).fy || '20%'};--fs:${(FACE_FOCUS[a.author.photo] || {}).fs || '1.7'}">
+                        <img src="../../assets/images/equipe/${a.author.photo}" alt="${a.author.name}" class="article-author-photo" loading="lazy" style="--fx:${(FACE_FOCUS[a.author.photo] || {}).fx || '50%'};--fy:${(FACE_FOCUS[a.author.photo] || {}).fy || '20%'};--fs:${(FACE_FOCUS[a.author.photo] || {}).fs || '1.7'}">
                     </span>
                 </span>
                 <div>
