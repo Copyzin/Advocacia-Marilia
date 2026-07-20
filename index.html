@@ -17,8 +17,11 @@
     <!-- Fontes self-hosted (fonts/): preload da fonte do titulo do hero (proxima do LCP) -->
     <link rel="preload" href="fonts/Newsreader-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 
+    <!-- Leaflet (mapa interativo da seção Localização, vendorizado localmente -- ver leaflet.min.js) -->
+    <link rel="stylesheet" href="leaflet.css">
+
     <!-- Estilos Principais -->
-    <link rel="stylesheet" href="style.css?v=28">
+    <link rel="stylesheet" href="style.css?v=44">
 </head>
 <body>
 
@@ -41,12 +44,13 @@
                 <li><a href="#equipe" class="nav-item">Equipe</a></li>
                 <li><a href="#atuacao" class="nav-item">Especialidades</a></li>
                 <li><a href="#metodologia" class="nav-item">Metodologia</a></li>
+                <li><a href="#localizacao" class="nav-item">Localização</a></li>
                 <li><a href="blog/" class="nav-item" data-dropdown="blog">Blog</a></li>
                 <li><a href="#faq" class="nav-item">Dúvidas</a></li>
             </ul>
 
             <!-- CTA WhatsApp no header: unico caminho ao WhatsApp visivel durante o Hero, ja que o FAB fica oculto ate #sobre -->
-            <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="nav-whatsapp cta-anim" aria-label="Fale conosco no WhatsApp">
+            <a href="https://wa.me/5514996108384?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20falar%20com%20um%20advogado." target="_blank" rel="noopener noreferrer" class="nav-whatsapp cta-anim" aria-label="Fale conosco no WhatsApp">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="nav-whatsapp-icon" aria-hidden="true">
                     <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                 </svg>
@@ -58,21 +62,37 @@
     <!-- SEÇÃO 1: HERO -->
     <header class="hero" id="inicio">
         <!-- Foto real do escritorio (ensaio) como fundo, p&b + veu radial navy -->
+        <!-- .hero-media-zoom isola o Ken Burns (CSS animation) da imagem: as duas
+             NAO podem disputar "transform" no mesmo elemento -- o parallax (JS,
+             translateY inline) ficava "congelado" pelos ~2.6s da animacao ativa,
+             so saltando pra posicao certa quando ela terminava (ver initHeroParallax) -->
         <div class="hero-media" aria-hidden="true">
-            <img src="assets/images/fotoatendendo.webp" alt="" fetchpriority="high" class="hero-media-img">
+            <div class="hero-media-zoom">
+                <img src="assets/images/fotoatendendo.webp" alt="" fetchpriority="high" class="hero-media-img">
+            </div>
         </div>
 
         <div class="hero-container">
-            <span class="hero-kicker reveal reveal-delay-1">Tradição e Ética desde 1986</span>
-            <h1 class="hero-title reveal reveal-delay-2">Espaço jurídico de excelência, ética e compromisso com o seu direito.</h1>
-            <p class="hero-subtitle reveal reveal-delay-3">Reunimos profissionais experientes e especializados de forma autônoma e independente. Prestamos assessoria técnica e personalizada para encontrar as melhores soluções.</p>
+            <!-- Cortina de entrada: .hero-mask e a janela fixa (overflow:hidden), o filho sobe
+                 de baixo pra cima atraves dela (translateY 120%->0). Ver style.css SECAO HERO -->
+            <div class="hero-mask reveal hero-delay-1">
+                <span class="hero-kicker">Tradição e Ética desde 1986</span>
+            </div>
+            <div class="hero-mask reveal hero-delay-2">
+                <h1 class="hero-title">Espaço jurídico de excelência, ética e compromisso com o seu direito.</h1>
+            </div>
+            <div class="hero-mask reveal hero-delay-3">
+                <p class="hero-subtitle">Reunimos profissionais experientes e especializados de forma autônoma e independente. Prestamos assessoria técnica e personalizada para encontrar as melhores soluções.</p>
+            </div>
             <!-- Mobile: o paragrafo sai de cena e entram 3 pontos compactos (hero enxuto) -->
-            <ul class="hero-points reveal reveal-delay-3">
-                <li>Tradição desde 1986</li>
-                <li>Especialistas independentes</li>
-                <li>Atendimento humanizado</li>
-            </ul>
-            <a href="#sobre" class="hero-link reveal reveal-delay-4">
+            <div class="hero-mask reveal hero-delay-3">
+                <ul class="hero-points">
+                    <li>Tradição desde 1986</li>
+                    <li>Especialistas independentes</li>
+                    <li>Atendimento humanizado</li>
+                </ul>
+            </div>
+            <a href="#sobre" class="hero-link reveal hero-delay-4">
                 <span>Conhecer Escritório</span>
                 <svg class="hero-link-arrow" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M8 2.5v10M3.5 8.5 8 13l4.5-4.5"/>
@@ -85,21 +105,23 @@
         <!-- SEÇÃO 2: A ADVOGADA / SOBRE -->
         <section class="about" id="sobre">
             <div class="section-container">
-                <!-- Grid de 2 linhas: kicker (linha 1, col dir), imagem (linha 2, col esq) e corpo (linha 2, col dir) -->
-                <!-- compartilham a mesma linha -> topo da imagem = topo do titulo, base da imagem = fim do texto.  -->
-                <div class="about-grid reveal">
+                <!-- Sem foto: o escritorio nunca enviou uma foto real pra essa secao, entao a
+                     tipografia carrega sozinha (kicker -> titulo grande em serifa de destaque ->
+                     paragrafo de abertura -> paineis de apoio), ref. visual do operador (estilo
+                     "Why Your Work Matters" da Paul Weiss: hierarquia de peso/tamanho, sem rotulo
+                     ou numeracao inventada). -->
+                <div class="about-intro reveal">
                     <span class="section-kicker about-kicker">Quem Somos</span>
-                    <div class="about-media">
-                        <div class="about-frame">
-                            <img src="assets/images/quem_somos_neutro.webp" alt="Reunião corporativa no escritório Advocacia Marília" class="about-img" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="about-body">
-                        <h2 class="section-title">Quase quatro décadas de dedicação à excelência jurídica.</h2>
+                    <h2 class="about-heading">Quase quatro décadas de dedicação à excelência jurídica.</h2>
+                    <p class="about-lead">Há quase quatro décadas, este espaço jurídico reúne advogados que exercem a advocacia de forma autônoma e independente, compartilhando uma mesma estrutura, sólidos princípios éticos e o compromisso com a excelência na prestação dos serviços jurídicos.</p>
+                </div>
 
-                        <p class="about-text">Há quase quatro décadas, este espaço jurídico reúne advogados que exercem a advocacia de forma autônoma e independente, compartilhando uma mesma estrutura, sólidos princípios éticos e o compromisso com a excelência na prestação dos serviços jurídicos.</p>
-                        <p class="about-text">Desde 1986, a tradição construída por profissionais experientes consolidou um ambiente pautado pela confiança, pelo respeito às pessoas e pela busca das melhores soluções para cada cliente. Com atuação em diversas áreas do Direito, os advogados que aqui desenvolvem suas atividades oferecem atendimento especializado, sempre preservando a autonomia profissional e a individualidade de cada relação.</p>
-                        <p class="about-text">Mais do que compartilhar um espaço de trabalho, compartilhamos valores. Acreditamos que a cooperação, a ética, o aperfeiçoamento constante e o atendimento humanizado fortalecem nossa atuação e refletem diretamente na qualidade dos serviços prestados.</p>
+                <div class="about-panels">
+                    <div class="about-panel reveal reveal-delay-1">
+                        <p class="about-panel-text">Desde 1986, a tradição construída por profissionais experientes consolidou um ambiente pautado pela confiança, pelo respeito às pessoas e pela busca das melhores soluções para cada cliente. Com atuação em diversas áreas do Direito, os advogados que aqui desenvolvem suas atividades oferecem atendimento especializado, sempre preservando a autonomia profissional e a individualidade de cada relação.</p>
+                    </div>
+                    <div class="about-panel reveal reveal-delay-2">
+                        <p class="about-panel-text">Mais do que compartilhar um espaço de trabalho, compartilhamos valores. Acreditamos que a cooperação, a ética, o aperfeiçoamento constante e o atendimento humanizado fortalecem nossa atuação e refletem diretamente na qualidade dos serviços prestados.</p>
                     </div>
                 </div>
 
@@ -137,21 +159,22 @@
                 </div>
 
                 <div class="team-grid">
-                    <!-- ADVOGADO 1: Francisco Rodrigues -->
+                    <!-- ADVOGADO 1: José Carlos R. Francisco -->
                     <div class="team-card reveal reveal-delay-1">
                         <div class="team-media">
-                            <img src="assets/images/equipe/francisco.webp" alt="Dr. Francisco Rodrigues" class="team-img" loading="lazy">
+                            <img src="assets/images/equipe/francisco.webp" alt="Dr. José Carlos R. Francisco" class="team-img" loading="lazy">
                         </div>
                         <div class="team-info">
-                            <h3 class="team-name">Dr. Francisco Rodrigues</h3>
-                            <span class="team-oab">OAB/SP 70.088</span>
+                            <h3 class="team-name">Dr. José Carlos R. Francisco</h3>
+                            <span class="team-oab">OAB/SP 66.114</span>
                             <p class="team-specialty">Direito Civil, Trabalhista e Imobiliário (Locações)</p>
-                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. Francisco Rodrigues">
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. José Carlos R. Francisco">
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/jose.carlos.r.francisco/" data-whatsapp="https://wa.me/5514997867000?text=Ol%C3%A1%2C%20Dr.%20Jos%C3%A9%20Carlos!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-phone="tel:1434138384"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Advogado atuante desde 1982, especializado nas áreas de Direito Civil, Direito do Trabalho e Direito Imobiliário voltado a locações. Possui uma sólida trajetória institucional na advocacia, tendo sido eleito Secretário da OAB Marília (1993/1995) e Secretário-Geral (2022/2024). Foi nomeado membro do Conselho Regional de Prerrogativas de Marília (2013/2015) e membro do Conselho Regional de Prerrogativas da 11ª Região (2016/2018). Atualmente, exerce o cargo de Vice-Presidente da 31ª Subseção da OAB de Marília/SP para o triênio 2025/2027.
+                                Advogado atuante desde 1982, especializado nas áreas de Direito Civil, Direito do Trabalho e Direito Imobiliário voltado a locações.<br><br>Possui uma sólida trajetória institucional na advocacia, tendo sido eleito Secretário da OAB Marília (1993/1995) e Secretário-Geral (2022/2024). Foi nomeado membro do Conselho Regional de Prerrogativas de Marília (2013/2015) e membro do Conselho Regional de Prerrogativas da 11ª Região (2016/2018). Atualmente, exerce o cargo de Vice-Presidente da 31ª Subseção da OAB de Marília/SP para o triênio 2025/2027.
                             </div>
                         </div>
                     </div>
@@ -169,8 +192,9 @@
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/rogerio_ortega_adv/" data-whatsapp="https://wa.me/5514997856505?text=Ol%C3%A1%2C%20Dr.%20Rog%C3%A9rio!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:advrogerioortega@gmail.com"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Graduado pelo Centro Universitário Eurípedes de Marília - UNIVEM (2004). Especialista pós-graduado em Direito e Processo do Trabalho pela Anhanguera-UNIDERP (2010), Direito Público (2012), Direito Previdenciário e Processo Previdenciário pelo IBMEC-SP (2022) e Direito Processual Civil pelo IBMEC-SP (2025). Atua na área de Direito Previdenciário com foco na concessão e revisão de aposentadorias e benefícios. No Direito Civil, atua em contratos, relações de consumo, família e sucessões. No Direito do Trabalho, atua em advocacia contenciosa e preventiva para trabalhadores e empresas.
+                                Graduado pelo Centro Universitário Eurípedes de Marília - UNIVEM (2004). Especialista pós-graduado em Direito e Processo do Trabalho pela Anhanguera-UNIDERP (2010), Direito Público (2012), Direito Previdenciário e Processo Previdenciário pelo IBMEC-SP (2022) e Direito Processual Civil pelo IBMEC-SP (2025).<br><br>Atua na área de Direito Previdenciário com foco na concessão e revisão de aposentadorias e benefícios. No Direito Civil, atua em contratos, relações de consumo, família e sucessões. No Direito do Trabalho, atua em advocacia contenciosa e preventiva para trabalhadores e empresas.
                             </div>
                         </div>
                     </div>
@@ -188,8 +212,9 @@
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/advrogeriomacedo/" data-whatsapp="https://wa.me/5514991359034?text=Ol%C3%A1%2C%20Dr.%20Rog%C3%A9rio!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica."></div>
                             <div class="team-bio-data" style="display: none;">
-                                Graduado pela Universidade de Marília (UNIMAR) em 2017 e pós-graduado em Direito Processual Civil. Atualiza-se constantemente junto à Escola Superior da Advocacia (ESA) e LEGALE, com extensões em Juizados Especiais Criminais, Processo Penal Constitucional, Direito de Família e Responsabilidade Civil no Direito Médico. Especializado em Direito Penal e Execução Penal (defesas em flagrante, Tribunal do Júri, recursos e Habeas Corpus de urgência), Direito de Família e Sucessões (divórcios, partilhas, pensão e inventários) e assessoria em Direito Contratual.
+                                Graduado pela Universidade de Marília (UNIMAR) em 2017 e pós-graduado em Direito Processual Civil. Atualiza-se constantemente junto à Escola Superior da Advocacia (ESA) e LEGALE, com extensões em Juizados Especiais Criminais, Processo Penal Constitucional, Direito de Família e Responsabilidade Civil no Direito Médico.<br><br>Especializado em Direito Penal e Execução Penal (defesas em flagrante, Tribunal do Júri, recursos e Habeas Corpus de urgência), Direito de Família e Sucessões (divórcios, partilhas, pensão e inventários) e assessoria em Direito Contratual.
                             </div>
                         </div>
                     </div>
@@ -201,14 +226,15 @@
                         </div>
                         <div class="team-info">
                             <h3 class="team-name">Dra. Cleomara Siqueira</h3>
-                            <span class="team-oab">OAB/SP 162.383</span>
-                            <p class="team-specialty">Direito Previdenciário e Processual Civil</p>
+                            <span class="team-oab">OAB/SP 269.463</span>
+                            <p class="team-specialty">Direito Civil, Administrativo e Previdenciário</p>
                             <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Cleomara Cardoso de Siqueira">
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/cleomara_siqueira_/" data-whatsapp="https://wa.me/5514981133941?text=Ol%C3%A1%2C%20Dra.%20Cleomara!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:cleomarasiqueira@yahoo.com.br"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Graduada em Direito pela UNIMAR (1998) e pela Escola Superior da Magistratura do Paraná (1999). Especialista pós-graduada em Direito Processual Civil pela UNIVEM (2002) e em Direito Previdenciário pelo IBMEC-SP (2020-2021). É Mestranda em Direito pela UNIMAR. Exerceu o cargo de Coordenadora Regional da Mulher Advogada da OAB/SP (2016/2018) e atua como Presidente da Comissão da Mulher Advogada da Subseção de Marília desde 2016. É coautora de artigos jurídicos sobre Alienação Parental e Contratos de Representação Comercial publicados em livros coletivos.
+                                Graduada em Direito pela UNIMAR (1998) e pela Escola Superior da Magistratura do Paraná (1999). Especialista pós-graduada em Direito Processual Civil pela UNIVEM (2002), em Direito Previdenciário pelo IBMEC-SP (2020-2021) e em Direito Previdenciário no Regime Próprio de Previdência Social (Lato Sensu) pela Excelência Previdenciário Cursos e Treinamentos. É Mestranda em Direito pela UNIMAR.<br><br>Atua em processos de direitos dos servidores públicos: quinquênio, sexta parte, progressão de direitos, desvio de função e benefícios previdenciários do Regime Próprio.<br><br>Exerceu o cargo de Coordenadora Regional da Mulher Advogada da OAB/SP (2016/2018) e atua como Presidente da Comissão da Mulher Advogada da Subseção de Marília desde 2016. É coautora de artigos jurídicos sobre Alienação Parental e Contratos de Representação Comercial publicados em livros coletivos.
                             </div>
                         </div>
                     </div>
@@ -226,8 +252,9 @@
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/sausanavicius.adv/" data-whatsapp="https://wa.me/5514998727354?text=Ol%C3%A1%2C%20Dra.%20Patr%C3%ADcia!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:sausanavicius.adv@hotmail.com"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Advogada com mais de 19 anos de experiência em advocacia e consultoria jurídica. Pós-graduada em Direito Civil e pós-graduanda em Direito Imobiliário. Atua com excelência técnica e sensibilidade humanizada no planejamento sucessório, proteção patrimonial familiar, inventários judiciais e extrajudiciais, divórcios, partilhas de bens, bem como em Direito Imobiliário (elaboração de contratos imobiliários, regularização de imóveis urbanos e rurais, usucapião e adjudicação compulsória).
+                                Advogada com mais de 19 anos de experiência, atua na assessoria jurídica de pessoas e famílias, com foco na proteção do patrimônio, no planejamento sucessório e na solução de questões familiares e imobiliárias.<br><br>Pós-graduada em Direito Processual Civil e pós-graduanda em Direito Imobiliário, desenvolve uma atuação estratégica voltada à prevenção de conflitos e à construção de soluções jurídicas seguras e personalizadas.<br><br>Possui ampla experiência em inventários judiciais e extrajudiciais, divórcios, partilhas de bens, planejamento patrimonial e sucessório, regularização de imóveis urbanos e rurais, usucapião, adjudicação compulsória, elaboração e revisão de contratos, indenizações e resolução de conflitos familiares e patrimoniais.
                             </div>
                         </div>
                     </div>
@@ -239,14 +266,15 @@
                         </div>
                         <div class="team-info">
                             <h3 class="team-name">Dra. Simone Tinetti</h3>
-                            <span class="team-oab">OAB/SP 376.602</span>
+                            <span class="team-oab">OAB/SP 490.844</span>
                             <p class="team-specialty">Direito Criminal, Execução Penal, Previdenciário e Família</p>
                             <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Simone Aparecida de Oliveira Tinetti Barbosa">
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/dra.simonetinetti/" data-whatsapp="https://wa.me/5514999049993?text=Ol%C3%A1%2C%20Dra.%20Simone!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:dra.simonetinetti@gmail.com"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Graduada em Direito pela Faculdade de Ensino Superior e Formação Integral - FAEF (2015) e pós-graduada em Direito Penal e Processual Penal. Atua com foco altamente especializado e humanizado no contencioso criminal e na execução penal de urgência, bem como na área de elaboração de contratos cíveis, Direito Previdenciário (benefícios administrativamente e judicialmente) e demandas judiciais de Família e Sucessões.
+                                Graduada em Direito pela Faculdade de Ensino Superior e Formação Integral - FAEF (2015) e pós-graduada em Direito Penal e Processual Penal.<br><br>Atua com foco altamente especializado e humanizado no contencioso criminal e na execução penal de urgência, bem como na área de elaboração de contratos cíveis, Direito Previdenciário, obtenção de benefícios nas esferas administrativa e judicial, e demandas de Família e Sucessões.
                             </div>
                         </div>
                     </div>
@@ -257,53 +285,96 @@
                             <img src="assets/images/equipe/carina.webp" alt="Dra. Carina Alves Camargo Prestes" class="team-img" loading="lazy">
                         </div>
                         <div class="team-info">
-                            <h3 class="team-name">Dra. Carina Alves</h3>
+                            <h3 class="team-name">Dra. Carina Prestes</h3>
                             <span class="team-oab">OAB/SP 266.124</span>
                             <p class="team-specialty">Direito Previdenciário (Administrativo e Judicial)</p>
                             <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Carina Alves Camargo Prestes">
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/adv.carinaprestes/" data-facebook="https://www.facebook.com/carina.alves.10/" data-whatsapp="https://wa.me/5514997013504?text=Ol%C3%A1%2C%20Dra.%20Carina!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:carinaprestes@adv.oabsp.org.br"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Graduada pela Fundação Eurípedes Soares da Rocha - UNIVEM (2006), pós-graduada em Direito Processual Civil pela UNIVEM e pós-graduada em Direito do Estado com ênfase em Previdenciário e Tributário pela UNIMAR. Membro da Comissão da Mulher Advogada da Subseção de Marília desde 2016. Possui mais de 15 anos de prática especializada no Direito Previdenciário contra o INSS, com forte atuação em planejamento previdenciário, aposentadorias especiais, benefícios de incapacidade, revisões de aposentadoria e concessões judiciais.
+                                Graduada pela Fundação Eurípedes Soares da Rocha - UNIVEM (2006), pós-graduada em Direito Processual Civil pela UNIVEM e pós-graduada em Direito do Estado com ênfase em Direito Previdenciário e Tributário pela UNIMAR, com especialidade em Planejamento Previdenciário.<br><br>Membro da Comissão da Mulher Advogada da Subseção de Marília desde 2016 e autora de artigos jurídicos.<br><br>Com mais de 15 anos de experiência, atua com grande dedicação e zelo no Direito Previdenciário, nos âmbitos administrativo e judicial, contra o INSS: aposentadorias, pensão por morte, auxílios por incapacidade temporária e permanente, benefício acidentário, revisões e planejamento previdenciário, garantindo a proteção social por meio das concessões, análise preventiva de cálculo e parecer para o melhor benefício previdenciário.
                             </div>
                         </div>
                     </div>
 
-                    <!-- ADVOGADO 8: Mauri Ortega -->
+                    <!-- ADVOGADO 8: José Augusto Nogueira de Souza -->
                     <div class="team-card reveal reveal-delay-2">
                         <div class="team-media">
-                            <img src="assets/images/equipe/joseaugusto.webp" alt="Dr. Mauri Ortega" class="team-img" loading="lazy">
+                            <img src="assets/images/equipe/joseaugusto.webp" alt="Dr. José Augusto Nogueira de Souza" class="team-img" loading="lazy">
                         </div>
                         <div class="team-info">
-                            <h3 class="team-name">Dr. Mauri Ortega</h3>
-                            <span class="team-oab">OAB/SP 130.638</span>
-                            <p class="team-specialty">Direito Imobiliário, Agrário, Inventários e Sucessões</p>
-                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. Mauri Ortega">
+                            <h3 class="team-name">Dr. José Augusto Nogueira de Souza</h3>
+                            <span class="team-oab">OAB/SP 340.081</span>
+                            <p class="team-specialty">Direito de Família e Direito Civil</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. José Augusto Nogueira de Souza">
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/janogueira.adv/" data-email="mailto:janogueira.adv@gmail.com"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Advogado militante desde 1994, com atuação altamente especializada no Direito Civil e Imobiliário. Foca na assessoria para elaboração de contratos rurais, arrendamento, parceria agrícola, partilhas, inventários e planejamento sucessório imobiliário. Atuou como membro nomeado do Conselho Regional de Prerrogativas de Marília/SP nos períodos de 2013/2015 e 2016/2018.
+                                Graduado em Direito pela Faculdade de Ciências da Saúde da Associação Cultural e Educacional de Garça (FAEF), atua na advocacia desde 2013, com ampla experiência no atendimento a pessoas físicas e jurídicas e atuação destacada em Direito Civil e Direito de Família.<br><br>No Direito de Família, atua em divórcios, guarda de filhos, regulamentação de convivência, pensão alimentícia, união estável, inventários e partilhas.<br><br>No Direito Civil, presta assessoria em ações indenizatórias, cobranças, responsabilidade civil, contratos, obrigações e direito do consumidor.<br><br>Possui ainda experiência em assessoria jurídica institucional e empresarial, com prática pautada na ética, na transparência e na busca por soluções jurídicas eficazes e humanizadas.
                             </div>
                         </div>
                     </div>
 
-                    <!-- ADVOGADO 9: Alessandra -->
+                    <!-- ADVOGADO 9: Alessandra Guedes -->
                     <div class="team-card reveal reveal-delay-3">
                         <div class="team-media">
-                            <img src="assets/images/equipe/alessandra.webp" alt="Dra. Alessandra" class="team-img" loading="lazy">
+                            <img src="assets/images/equipe/alessandra.webp" alt="Dra. Alessandra Guedes" class="team-img" loading="lazy">
                         </div>
                         <div class="team-info">
-                            <h3 class="team-name">Dra. Alessandra</h3>
-                            <span class="team-oab">OAB/SP Ativa</span>
-                            <p class="team-specialty">Direito Civil, Relações de Consumo e Prática Preventiva</p>
-                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Alessandra">
+                            <h3 class="team-name">Dra. Alessandra Guedes</h3>
+                            <span class="team-oab">OAB/SP 258.016</span>
+                            <p class="team-specialty">Direito Previdenciário (RGPS e RPPS)</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Alessandra Guedes">
                                 <span class="btn-text">Ver Perfil</span>
                                 <span class="btn-icon"></span>
                             </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/alessandraguedes.adv/" data-whatsapp="https://wa.me/5514996766044?text=Ol%C3%A1%2C%20Dra.%20Alessandra!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:alessandraguedes@adv.oabsp.org.br"></div>
                             <div class="team-bio-data" style="display: none;">
-                                Advogada com destacada atuação na advocacia cível e de relações consumeristas. Dedica-se à assessoria contratual e preventiva, atuando no contencioso cível com ética, sigilo absoluto e excelência técnica. Presta consultoria para a mitigação de riscos em negócios cíveis e comerciais, atuando sempre com o objetivo de oferecer soluções práticas, seguras e personalizadas para cada cliente.
+                                Advogada graduada pelo Centro Universitário Eurípides de Marília (UNIVEM), com mais de 19 anos de experiência em Direito Previdenciário.<br><br>Atua na defesa dos direitos de segurados e servidores públicos, com reconhecida expertise em aposentadorias, revisões de benefícios, auxílio-acidente no Regime Geral de Previdência Social (RGPS) e aposentadorias e benefícios no Regime Próprio de Previdência Social (RPPS).<br><br>É pós-graduada em Planejamento Previdenciário e mestranda em Direito pela Universidade de Marília (UNIMAR), aliando sólida experiência prática à constante atualização acadêmica para oferecer soluções jurídicas seguras, estratégicas e personalizadas.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 10: Nicoly Yumi Lima Miyada -->
+                    <div class="team-card reveal reveal-delay-1">
+                        <div class="team-media">
+                            <img src="assets/images/equipe/nicoly.webp" alt="Dra. Nicoly Yumi Lima Miyada" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dra. Nicoly Yumi Lima Miyada</h3>
+                            <span class="team-oab">OAB/SP 512.578</span>
+                            <p class="team-specialty">Direito Trabalhista, Penal, Eleitoral, Civil e Previdenciário</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dra. Nicoly Yumi Lima Miyada">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/nicolymiyada.adv/" data-whatsapp="https://wa.me/5514988224843?text=Ol%C3%A1%2C%20Dra.%20Nicoly!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:nicolymiyadaddl@gmail.com"></div>
+                            <div class="team-bio-data" style="display: none;">
+                                Graduada em Direito pela Universidade Eurípides de Marília (UNIVEM) e pós-graduanda em Direito Penal e Processual Penal pela Faculdade Iguaçu.<br><br>Atua nas áreas Trabalhista, Penal, Eleitoral, Civil (alimentos, inventários e sucessões e responsabilidade civil), Previdenciária (salário-maternidade e aposentadoria rural e urbana) e Direito Médico, com foco em violência obstétrica, além de prestar consultoria e assessoria jurídica para pessoas físicas e empresas.<br><br>Sua atuação é pautada na ética, no atendimento humanizado e na busca por soluções jurídicas seguras, estratégicas e personalizadas para cada cliente.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADVOGADO 11: Mauri de Jesus Marques Ortega -->
+                    <div class="team-card reveal reveal-delay-2">
+                        <div class="team-media">
+                            <img src="assets/images/equipe/mauri.webp" alt="Dr. Mauri de Jesus Marques Ortega" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-name">Dr. Mauri de Jesus Marques Ortega</h3>
+                            <span class="team-oab">OAB/SP 124.952</span>
+                            <p class="team-specialty">Direito Imobiliário, Agrário, Inventários e Sucessões</p>
+                            <button class="team-expand-btn" aria-label="Ver perfil completo de Dr. Mauri de Jesus Marques Ortega">
+                                <span class="btn-text">Ver Perfil</span>
+                                <span class="btn-icon"></span>
+                            </button>
+                            <div class="team-contact-data" style="display: none;" data-instagram="https://www.instagram.com/mauri_ortega/" data-whatsapp="https://wa.me/5514997848857?text=Ol%C3%A1%2C%20Dr.%20Mauri!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20conversar%20sobre%20uma%20quest%C3%A3o%20jur%C3%ADdica." data-email="mailto:advmauriortega@gmail.com"></div>
+                            <div class="team-bio-data" style="display: none;">
+                                Advogado desde 1994. Atua como advogado especialista na área de Direito Civil, especificamente na área de Direito Imobiliário, com realização de contratos rurais, arrendamento, parceria agrícola, inventário e sucessões.<br><br>Foi nomeado membro do Conselho Regional de Prerrogativas de Marília/SP, ano de 2013/2015 e no ano de 2016/2018.
                             </div>
                         </div>
                     </div>
@@ -431,6 +502,44 @@
             </div>
         </section>
 
+        <!-- SEÇÃO: LOCALIZAÇÃO -->
+        <section class="location" id="localizacao">
+            <div class="section-container">
+                <div class="location-grid">
+                    <div class="location-info reveal">
+                        <span class="section-kicker light">Localização</span>
+                        <h2 class="section-title light">Sede própria, no coração de Marília.</h2>
+                        <p class="location-lead">Um espaço planejado para recebê-lo com privacidade e conforto, na Avenida Gonçalves Dias, bem no Centro. Como a via tem grande movimento, contamos com estacionamento próprio no local, garantindo uma visita sem contratempos.</p>
+
+                        <div class="location-photo-frame">
+                            <img src="assets/images/fachada-2.webp" alt="Fachada da Advocacia Marília, na Avenida Gonçalves Dias, 18" loading="lazy" class="location-photo">
+                        </div>
+
+                        <div class="location-facts">
+                            <div class="location-fact">
+                                <span class="info-label">Endereço</span>
+                                <address class="info-value">Av. Gonçalves Dias, 18, Centro - Marília, SP</address>
+                            </div>
+                            <div class="location-fact">
+                                <span class="info-label">Estacionamento</span>
+                                <span class="info-value">Próprio, no local</span>
+                            </div>
+                        </div>
+
+                        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Av.%20Gon%C3%A7alves%20Dias%2C%2018%20-%20Centro%2C%20Mar%C3%ADlia%20-%20SP%2C%20Brasil" target="_blank" rel="noopener noreferrer" class="btn btn-primary cta-anim">
+                            <span class="cta-label"><span class="cta-label-inner">Ver Rotas</span><span class="cta-label-inner" aria-hidden="true">Ver Rotas</span></span>
+                        </a>
+                    </div>
+
+                    <div class="location-map reveal reveal-delay-1">
+                        <div class="location-map-frame">
+                            <div id="locationMap" class="location-map-canvas" aria-label="Mapa interativo com a localização exata da Advocacia Marília"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SEÇÃO: BLOG / INFORMAÇÃO -->
         <section class="blog" id="blog">
             <div class="section-container">
@@ -443,23 +552,23 @@
                     <article class="blog-card reveal reveal-delay-1">
                         <span class="blog-date">15 de Junho, 2026</span>
                         <h3 class="blog-card-title">Planejamento previdenciário: como garantir uma aposentadoria segura</h3>
-                        <p class="blog-card-author">Por Dra. Carina Alves · OAB/SP 266.124</p>
+                        <p class="blog-card-author">Por Dra. Carina Prestes · OAB/SP 266.124</p>
                         <p class="blog-card-excerpt">Entenda a importância de planejar a sua aposentadoria com antecedência, analisando as regras de transição e calculando o melhor momento para o requerimento.</p>
-                        <a href="blog/planejamento-previdenciario/" class="blog-read-more" aria-label="Ler artigo completo sobre Planejamento Previdenciário">Ler artigo completo</a>
+                        <a href="blog/planejamento-previdenciario/" class="blog-read-more" aria-label="Ler artigo completo sobre Planejamento Previdenciário"><span class="blog-read-more-label">Ler artigo completo</span></a>
                     </article>
                     <article class="blog-card reveal reveal-delay-2">
                         <span class="blog-date">02 de Junho, 2026</span>
                         <h3 class="blog-card-title">Inventário extrajudicial: o caminho mais rápido para a partilha de bens</h3>
                         <p class="blog-card-author">Por Dra. Patrícia Sausanavicius · OAB/SP 263.193</p>
                         <p class="blog-card-excerpt">Saiba como realizar a partilha de bens de forma ágil através de cartório de notas, economizando tempo e evitando o desgaste de um processo judicial demorado.</p>
-                        <a href="blog/inventario-extrajudicial/" class="blog-read-more" aria-label="Ler artigo completo sobre Inventário Extrajudicial">Ler artigo completo</a>
+                        <a href="blog/inventario-extrajudicial/" class="blog-read-more" aria-label="Ler artigo completo sobre Inventário Extrajudicial"><span class="blog-read-more-label">Ler artigo completo</span></a>
                     </article>
                     <article class="blog-card reveal reveal-delay-3">
                         <span class="blog-date">24 de Maio, 2026</span>
                         <h3 class="blog-card-title">Contratos imobiliários: cuidados essenciais antes de assinar a compra</h3>
                         <p class="blog-card-author">Por Dr. Mauri Ortega · OAB/SP 130.638</p>
                         <p class="blog-card-excerpt">Descubra as principais cláusulas que devem ser revisadas por um advogado de confiança para prevenir fraudes, atrasos e dores de cabeça futuras.</p>
-                        <a href="blog/contratos-imobiliarios-compra-segura/" class="blog-read-more" aria-label="Ler artigo completo sobre Contratos Imobiliários">Ler artigo completo</a>
+                        <a href="blog/contratos-imobiliarios-compra-segura/" class="blog-read-more" aria-label="Ler artigo completo sobre Contratos Imobiliários"><span class="blog-read-more-label">Ler artigo completo</span></a>
                     </article>
                 </div>
 
@@ -537,8 +646,12 @@
                     
                     <div class="cta-info-grid">
                         <div class="cta-info-item">
-                            <span class="info-label">Telefone</span>
+                            <span class="info-label">Telefone (ligação)</span>
                             <a href="tel:1434138384" class="info-value">(14) 3413 8384</a>
+                        </div>
+                        <div class="cta-info-item">
+                            <span class="info-label">WhatsApp</span>
+                            <a href="https://wa.me/5514996108384?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20falar%20com%20um%20advogado." target="_blank" rel="noopener noreferrer" class="info-value">(14) 99610-8384</a>
                         </div>
                         <div class="cta-info-item">
                             <span class="info-label">Endereço</span>
@@ -546,7 +659,7 @@
                         </div>
                     </div>
 
-                    <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large cta-anim"><span class="cta-label"><span class="cta-label-inner">Enviar Mensagem via WhatsApp</span><span class="cta-label-inner" aria-hidden="true">Enviar Mensagem via WhatsApp</span></span></a>
+                    <a href="https://wa.me/5514996108384?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20falar%20com%20um%20advogado." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large cta-anim"><span class="cta-label"><span class="cta-label-inner">Enviar Mensagem via WhatsApp</span><span class="cta-label-inner" aria-hidden="true">Enviar Mensagem via WhatsApp</span></span></a>
                 </div>
             </div>
         </section>
@@ -588,7 +701,7 @@
         </div>
 
         <!-- FAB redondo verde WhatsApp: clique navega pro wa.me; hover (desktop) abre o chat -->
-        <a class="wa-btn" id="waBtn" href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+        <a class="wa-btn" id="waBtn" href="https://wa.me/5514996108384?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20falar%20com%20um%20advogado." target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="wa-icon" aria-hidden="true">
                 <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
             </svg>
@@ -621,7 +734,7 @@
             </div>
 
             <footer class="wa-panel-footer">
-                <a href="https://wa.me/551434138384" target="_blank" rel="noopener noreferrer" class="wa-direct-link">
+                <a href="https://wa.me/5514996108384?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Advocacia%20Mar%C3%ADlia%20e%20gostaria%20de%20falar%20com%20um%20advogado." target="_blank" rel="noopener noreferrer" class="wa-direct-link">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                     Falar no WhatsApp
                 </a>
@@ -633,7 +746,11 @@
     <div class="team-modal" id="teamModal" role="dialog" aria-hidden="true" aria-label="Perfil do Advogado">
         <div class="team-modal-overlay" id="teamModalOverlay"></div>
         <div class="team-modal-content">
-            <button class="team-modal-close" id="teamModalClose" aria-label="Fechar perfil">&times;</button>
+            <button class="team-modal-close" id="teamModalClose" aria-label="Fechar perfil">
+                <svg class="team-modal-close-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 4l8 8M12 4l-8 8"/>
+                </svg>
+            </button>
             <div class="team-modal-body">
                 <div class="team-modal-media">
                     <img src="" alt="" id="teamModalImg" class="team-modal-img">
@@ -645,6 +762,7 @@
                     <div class="team-modal-bio-wrapper">
                         <p class="team-modal-text" id="teamModalBio"></p>
                     </div>
+                    <div class="team-modal-contacts" id="teamModalContacts"></div>
                 </div>
             </div>
         </div>
@@ -652,6 +770,7 @@
 
     <!-- Scripts Principais -->
     <script src="lenis.min.js" defer></script>
-    <script src="script.js?v=11" defer></script>
+    <script src="leaflet.min.js" defer></script>
+    <script src="script.js?v=19" defer></script>
 </body>
 </html>

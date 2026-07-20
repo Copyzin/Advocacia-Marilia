@@ -13,9 +13,10 @@ Projeto da **[Almeida Escala Digital](https://almeidaescaladigital.com/)**.
 4. [Rodando localmente](#rodando-localmente)
 5. [Cache busting](#cache-busting)
 6. [Blog (gerador de páginas)](#blog-gerador-de-páginas)
-7. [Deploy na Hostinger](#deploy-na-hostinger)
-8. [Google Tag Manager](#google-tag-manager)
-9. [Pendências](#pendências)
+7. [Minimapa da seção Localização](#minimapa-da-seção-localização)
+8. [Deploy na Hostinger](#deploy-na-hostinger)
+9. [Google Tag Manager](#google-tag-manager)
+10. [Pendências](#pendências)
 
 ---
 
@@ -36,6 +37,7 @@ Projeto da **[Almeida Escala Digital](https://almeidaescaladigital.com/)**.
 - **HTML5 estático** — sem framework, sem build obrigatório
 - **CSS3 puro** (`style.css`) — sem Tailwind, sem CSS-in-JS; variáveis nativas (`:root`), Grid e Flexbox
 - **Vanilla JS** (`script.js`) — sem GSAP; scroll suave via [Lenis](https://lenis.darkroom.engineering/) (`lenis.min.js`, vendorizado localmente)
+- **Mapa interativo** (seção Localização) via [Leaflet](https://leafletjs.com/) + tiles do [OpenStreetMap](https://www.openstreetmap.org/) — `leaflet.min.js`/`leaflet.css`, vendorizados localmente (sem CDN, sem chave de API)
 - **Fontes self-hosted** em `fonts/` (Work Sans, Bitter, Newsreader) — sem Google Fonts externo
 - **Node** é usado **só em dev**, para gerar as páginas do blog (`tools/build-blog.mjs`) — o deploy continua 100% estático, sem servidor Node em produção
 
@@ -49,8 +51,10 @@ Projeto da **[Almeida Escala Digital](https://almeidaescaladigital.com/)**.
 advocacia-marilia/
 ├── index.html                  # Página única (todas as seções da home)
 ├── style.css                   # Todo o CSS do site (design tokens + estilos)
-├── script.js                   # Toda a interatividade (navbar, menu, FAQ, dropdown, WhatsApp widget, reveal)
+├── script.js                   # Toda a interatividade (navbar, menu, FAQ, dropdown, WhatsApp widget, reveal, mapa)
 ├── lenis.min.js                # Lib de scroll suave (vendorizada, sem CDN)
+├── leaflet.min.js              # Lib do mapa interativo, secao Localizacao (vendorizada, sem CDN/chave)
+├── leaflet.css                 # CSS do Leaflet (controles, popup, panes)
 ├── .htaccess                   # Config Apache/Hostinger (cache, gzip, HTTPS, headers)
 ├── fonts/                      # Fontes self-hosted (.woff2)
 ├── assets/
@@ -75,7 +79,10 @@ Toda imagem do site — favicons, logo, fotos de seção e os retratos da equipe
 | Se for trocar... | Está em | Referenciada em |
 |---|---|---|
 | Logo, favicons | `assets/images/*.png`, `logo-icon-gold.webp` | `index.html`, `tools/build-blog.mjs` (`chrome()`), `style.css` (avatar do widget) |
-| Fotos das seções (hero, Sobre, Especialidades, Metodologia) | `assets/images/*.webp` | `index.html`, `style.css` (as duas do swap blur/nítido em Metodologia) |
+| Fotos das seções (hero, Sobre, Especialidades) | `assets/images/*.webp` | `index.html` |
+| Foto "Atendimento Humanizado" (Metodologia, estado de repouso) | `assets/images/compromisso_atendimento.webp` | `index.html` (`.featured-img`) — **única foto do site sem filtro p&b**, colorida de propósito (pedido do operador); não "corrija" pra grayscale achando que é inconsistência |
+| Foto "Compromisso" (Metodologia, swap no hover) | `assets/images/compromisso_reuniao.webp` / `compromisso_reuniao_blur.webp` | `index.html` (`.featured-swap-sharp`/`.featured-swap-blur`), p&b padrão do site em `style.css` |
+| Fachada do escritório (seção Localização) | `assets/images/fachada-2.webp` (foto mais aberta, com espaço pro zoom-out do hover; `fachada.webp` ficou sem uso) | `index.html` (`.location-photo-frame`), hover zoom-out + p&b↔cor em `style.css` (`.location-photo`) |
 | Retrato de um advogado | `assets/images/equipe/<nome>.webp` | `index.html` (grade da Equipe) e nos artigos do blog cujo autor seja essa pessoa (`tools/build-blog.mjs`, campo `photo` em `ARTICLES`) |
 
 **Ao trocar uma foto:** mantenha o **mesmo nome de arquivo** (mais simples — não exige editar HTML/CSS/JS) ou, se o nome mudar, atualize a(s) referência(s) na tabela acima. Fotos da equipe **não precisam** de bump de `?v=N` (não passam pelo cache-busting do CSS/JS); trocar o arquivo já reflete no próximo carregamento. Há também alguns `.png` "órfãos" em `assets/images/` (ex. `compromisso_humanizado.png`, `fotoatendendo.png`) — são versões anteriores já substituídas pelos `.webp` equivalentes; ficaram guardados ali, não são carregados pelo site.
@@ -110,6 +117,7 @@ Abra `http://localhost:8080/` no navegador. Para editar o blog, veja a seção [
 - [ ] Seção de Especialidades: card de foto com zoom-out no hover, legenda sobe centralizada
 - [ ] Animações de entrada (scroll reveal) disparam ao rolar
 - [ ] Blog: hub (`/blog/`) lista os artigos por categoria; cada artigo abre em `/blog/<slug>/`
+- [ ] Seção Localização: mapa arrasta/dá zoom normalmente; passar o mouse no pin (ou tocar, no mobile) abre o card com endereço/estacionamento acima dele
 
 ---
 
@@ -142,6 +150,16 @@ Sem isso, o navegador do visitante pode continuar servindo a versão antiga do C
 
 ---
 
+## Minimapa da seção Localização
+
+- **Leaflet + OpenStreetMap**, vendorizados localmente (`leaflet.min.js`, `leaflet.css`) — sem chave de API, sem CDN. Substituiu um iframe simples do Google Maps: esse tipo de embed não expõe pan/zoom para JS, então não dava para manter um pin customizado alinhado enquanto o mapa era arrastado. Com Leaflet, o marker e o popup são nativos da lib e ficam sempre sincronizados durante o pan/zoom (sem lag, sem flicker).
+- **Onde mexer:** tudo fica em `initLocationMap()`/`createLocationMap()`, no final de `script.js`. Coordenadas (`lat`/`lng`) e a URL de rotas (`routeUrl`) são passadas como constantes dentro de `initLocationMap()` — se o escritório mudar de endereço, atualize essas duas coisas ali, além do texto de endereço/estacionamento em `index.html` (seção `#localizacao`).
+- **Retonalização:** o filtro `grayscale`/`contrast`/`brightness` fica em `.leaflet-tile-pane` (só os tiles — não afeta marker/popup, que ficam em panes separados). O tom navy por cima é uma `<div class="location-map-tint">` com `mix-blend-mode: color`, inserida via JS logo depois do mapa montar, com z-index entre o tilePane (200) e o markerPane (600) do Leaflet.
+- **Lazy load:** o mapa só é montado quando a seção se aproxima do viewport (`IntersectionObserver`, `rootMargin: 300px`) — evita baixar tiles do OpenStreetMap se o visitante nunca rolar até lá.
+- **Atribuição do OpenStreetMap é obrigatória** (`.leaflet-control-attribution`, canto inferior direito do mapa) — pode ser restilizada, mas não removida.
+
+---
+
 ## Deploy na Hostinger
 
 Site **100% estático** — sem PHP, sem banco de dados. O deploy é apenas o envio dos arquivos para o servidor.
@@ -164,6 +182,8 @@ public_html/
 ├── style.css
 ├── script.js
 ├── lenis.min.js
+├── leaflet.min.js
+├── leaflet.css
 ├── .htaccess
 ├── fonts/
 ├── assets/images/
@@ -198,6 +218,7 @@ Alguns planos Hostinger (Business/Premium) permitem apontar `public_html/` para 
 - [ ] DevTools → Network: `style.css?v=N` e `script.js?v=N` carregando a versão mais recente (não uma versão antiga em cache)
 - [ ] `tools/build-blog.mjs` e os `.md`/`.pdf` internos **não** ficam acessíveis publicamente (teste `seudominio.com/tools/build-blog.mjs` — deve dar 403)
 - [ ] Botões de WhatsApp (header, widget flutuante, CTA final) abrem o número certo
+- [ ] Seção Localização carrega o mapa (tiles do OpenStreetMap) com o pin na posição certa — se não carregar, confira se `leaflet.min.js`/`leaflet.css` foram enviados
 
 ---
 

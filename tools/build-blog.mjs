@@ -8,9 +8,14 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const CSS_V = 28;
-const JS_V = 11;
-const WA = 'https://wa.me/551434138384';
+const CSS_V = 44;
+const JS_V = 19;
+const WA = 'https://wa.me/5514996108384';
+// Mensagem pronta: breve, direta, avisa que veio pelo site. Generica (chrome
+// compartilhado: nav/FAB/painel) -- o CTA de dentro do artigo usa uma versao
+// com o titulo do artigo (ver articleContent), contexto que aqui nao existe.
+const WA_MSG_GERAL = encodeURIComponent('Olá! Vim pelo site da Advocacia Marília e gostaria de falar com um advogado.');
+const WA_GERAL = `${WA}?text=${WA_MSG_GERAL}`;
 
 // Ponto focal do rosto por foto (object-position/zoom do thumbnail do autor).
 // Enquadramento fechado (referencia do cliente): rosto + pescoco + colo, margem
@@ -22,10 +27,10 @@ const FACE_FOCUS = {
     'francisco.webp':     { fx: '50%', fy: '24%', fs: '1.98' },
     'rogerioortega.webp': { fx: '58%', fy: '30%', fs: '2.05' },
     'rogeriomacedo.webp': { fx: '53%', fy: '38%', fs: '1.58' },
-    'cleomara.webp':      { fx: '63%', fy: '35%', fs: '1.88' },
+    'cleomara.webp':      { fx: '52%', fy: '32%', fs: '1.98' },
     'patricia.webp':      { fx: '63%', fy: '52%', fs: '1.84' },
-    'simone.webp':        { fx: '85%', fy: '47%', fs: '2.18' },
-    'carina.webp':        { fx: '53%', fy: '35%', fs: '1.78' },
+    'simone.webp':        { fx: '54%', fy: '39%', fs: '1.85' },
+    'carina.webp':        { fx: '53%', fy: '36%', fs: '1.85' },
     'joseaugusto.webp':   { fx: '59%', fy: '33%', fs: '1.68' },
     'alessandra.webp':    { fx: '62%', fy: '39%', fs: '2.65' },
 };
@@ -72,7 +77,7 @@ const ARTICLES = [
         date: '08 de Maio, 2026',
         dateISO: '2026-05-08',
         excerpt: 'O Benefício de Prestação Continuada garante um salário mínimo mensal a idosos e pessoas com deficiência em situação de vulnerabilidade. Veja os requisitos.',
-        author: { name: 'Dra. Cleomara Siqueira', oab: 'OAB/SP 162.383', photo: 'cleomara.webp', bio: 'Especialista pós-graduada em Direito Previdenciário pelo IBMEC-SP e em Direito Processual Civil pela UNIVEM. Mestranda em Direito pela UNIMAR.' },
+        author: { name: 'Dra. Cleomara Siqueira', oab: 'OAB/SP 269.463', photo: 'cleomara.webp', bio: 'Especialista pós-graduada em Direito Previdenciário pelo IBMEC-SP e em Direito Processual Civil pela UNIVEM. Mestranda em Direito pela UNIMAR.' },
         body: `
 <p>O Benefício de Prestação Continuada (BPC), previsto na Lei Orgânica da Assistência Social (LOAS), assegura um salário mínimo por mês a quem se enquadra em situações específicas de vulnerabilidade. Diferentemente da aposentadoria, ele não exige contribuições ao INSS, mas os requisitos são rigorosos e a análise costuma gerar dúvidas.</p>
 <h2>Quem pode receber</h2>
@@ -117,7 +122,7 @@ const ARTICLES = [
         date: '24 de Maio, 2026',
         dateISO: '2026-05-24',
         excerpt: 'As principais cláusulas e verificações que devem ser feitas antes de assinar a compra de um imóvel, para prevenir fraudes e dores de cabeça futuras.',
-        author: { name: 'Dr. Mauri Ortega', oab: 'OAB/SP 130.638', photo: 'joseaugusto.webp', bio: 'Advogado desde 1994, com atuação especializada em Direito Civil e Imobiliário, contratos rurais, partilhas e planejamento sucessório imobiliário.' },
+        author: { name: 'Dr. José Augusto Nogueira de Souza', oab: 'OAB/SP 340.081', photo: 'joseaugusto.webp', bio: 'Advogado desde 2013, com atuação destacada em Direito Civil e Direito de Família: divórcios, inventários, partilhas, contratos e responsabilidade civil.' },
         body: `
 <p>A compra de um imóvel costuma ser a maior transação financeira da vida de uma família. Ainda assim, é comum que o contrato seja assinado sem uma análise jurídica prévia. Problemas que custariam pouco para prevenir acabam custando caro para remediar.</p>
 <h2>Antes do contrato: a diligência</h2>
@@ -142,7 +147,7 @@ const ARTICLES = [
         date: '19 de Maio, 2026',
         dateISO: '2026-05-19',
         excerpt: 'Garantias, reajustes, benfeitorias e retomada do imóvel: o que a Lei do Inquilinato estabelece para cada parte na locação urbana.',
-        author: { name: 'Dr. Francisco Rodrigues', oab: 'OAB/SP 70.088', photo: 'francisco.webp', bio: 'Advogado desde 1982, especializado em Direito Civil, do Trabalho e Imobiliário voltado a locações. Vice-Presidente da 31ª Subseção da OAB Marília (2025/2027).' },
+        author: { name: 'Dr. José Carlos R. Francisco', oab: 'OAB/SP 66.114', photo: 'francisco.webp', bio: 'Advogado desde 1982, especializado em Direito Civil, do Trabalho e Imobiliário voltado a locações. Vice-Presidente da 31ª Subseção da OAB Marília (2025/2027).' },
         body: `
 <p>A locação urbana é regida pela Lei do Inquilinato (Lei 8.245/91), que equilibra direitos e deveres entre quem aluga e quem ocupa o imóvel. Conhecer as regras básicas evita a maior parte dos conflitos e ajuda a resolver com rapidez os que surgirem.</p>
 <h2>Garantias da locação</h2>
@@ -214,7 +219,7 @@ const ARTICLES = [
         date: '30 de Maio, 2026',
         dateISO: '2026-05-30',
         excerpt: 'Do fechado ao semiaberto, do semiaberto ao aberto: os requisitos objetivos e subjetivos para progredir de regime no cumprimento da pena.',
-        author: { name: 'Dra. Simone Tinetti', oab: 'OAB/SP 376.602', photo: 'simone.webp', bio: 'Pós-graduada em Direito Penal e Processual Penal, com atuação especializada no contencioso criminal e na execução penal de urgência.' },
+        author: { name: 'Dra. Simone Tinetti', oab: 'OAB/SP 490.844', photo: 'simone.webp', bio: 'Pós-graduada em Direito Penal e Processual Penal, com atuação especializada no contencioso criminal e na execução penal de urgência.' },
         body: `
 <p>A execução penal brasileira é progressiva: a pena privativa de liberdade foi desenhada para ser cumprida em etapas, do regime mais rigoroso ao mais brando, conforme o condenado demonstra condições de retornar gradualmente ao convívio social. A progressão de regime é o instrumento central desse sistema.</p>
 <h2>Requisito objetivo: o tempo de pena</h2>
@@ -238,7 +243,7 @@ const ARTICLES = [
         date: '05 de Junho, 2026',
         dateISO: '2026-06-05',
         excerpt: 'Nome negativado por dívida que não existe ou já foi paga? Veja o que o Código de Defesa do Consumidor garante e como agir.',
-        author: { name: 'Dra. Alessandra', oab: 'OAB/SP', photo: 'alessandra.webp', bio: 'Atuação destacada na advocacia cível e consumerista, com foco em assessoria contratual, prevenção de riscos e contencioso cível.' },
+        author: { name: 'Dra. Alessandra Guedes', oab: 'OAB/SP 258.016', photo: 'alessandra.webp', bio: 'Mais de 19 anos de experiência em Direito Previdenciário, com atuação em aposentadorias, revisões de benefícios e auxílio-acidente no RGPS e benefícios no RPPS.' },
         body: `
 <p>Descobrir o próprio nome nos cadastros de inadimplentes por uma dívida desconhecida (ou já quitada) é uma situação mais comum do que deveria. O Código de Defesa do Consumidor oferece instrumentos concretos para corrigir o problema e, em muitos casos, reparar os danos causados.</p>
 <h2>O que caracteriza cobrança indevida</h2>
@@ -298,11 +303,12 @@ function chrome(depth, { title, description, bodyClass, content, ogType }) {
                 <li><a href="${p}index.html#equipe" class="nav-item">Equipe</a></li>
                 <li><a href="${p}index.html#atuacao" class="nav-item">Especialidades</a></li>
                 <li><a href="${p}index.html#metodologia" class="nav-item">Metodologia</a></li>
+                <li><a href="${p}index.html#localizacao" class="nav-item">Localização</a></li>
                 <li><a href="${p}blog/" class="nav-item" data-dropdown="blog">Blog</a></li>
                 <li><a href="${p}index.html#faq" class="nav-item">Dúvidas</a></li>
             </ul>
 
-            <a href="${WA}" target="_blank" rel="noopener noreferrer" class="nav-whatsapp cta-anim" aria-label="Fale conosco no WhatsApp">
+            <a href="${WA_GERAL}" target="_blank" rel="noopener noreferrer" class="nav-whatsapp cta-anim" aria-label="Fale conosco no WhatsApp">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="nav-whatsapp-icon" aria-hidden="true">
                     <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                 </svg>
@@ -342,7 +348,7 @@ ${content}
             <button class="wa-tooltip-close" id="waTooltipClose" aria-label="Fechar balão de ajuda">&times;</button>
         </div>
 
-        <a class="wa-btn" id="waBtn" href="${WA}" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+        <a class="wa-btn" id="waBtn" href="${WA_GERAL}" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="wa-icon" aria-hidden="true">
                 <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
             </svg>
@@ -373,7 +379,7 @@ ${content}
             </div>
 
             <footer class="wa-panel-footer">
-                <a href="${WA}" target="_blank" rel="noopener noreferrer" class="wa-direct-link">
+                <a href="${WA_GERAL}" target="_blank" rel="noopener noreferrer" class="wa-direct-link">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.748-.984zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01a1.1 1.1 0 0 0-.792.372c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                     Falar no WhatsApp
                 </a>
@@ -397,7 +403,7 @@ function hubContent() {
                         <h3 class="blog-card-title">${a.title}</h3>
                         <p class="blog-card-author">Por ${a.author.name} · ${a.author.oab}</p>
                         <p class="blog-card-excerpt">${a.excerpt}</p>
-                        <a href="${a.slug}/" class="blog-read-more" aria-label="Ler o artigo: ${a.title}">Ler artigo completo</a>
+                        <a href="${a.slug}/" class="blog-read-more" aria-label="Ler o artigo: ${a.title}"><span class="blog-read-more-label">Ler artigo completo</span></a>
                     </article>`).join('\n');
         return `        <section class="blog-cat" id="${cat.id}">
             <div class="section-container">
@@ -457,7 +463,7 @@ ${a.body.trim()}
             </div>
 
             <div class="article-cta">
-                <a href="${WA}" target="_blank" rel="noopener noreferrer" class="btn btn-primary cta-anim"><span class="cta-label"><span class="cta-label-inner">Falar com um Advogado</span><span class="cta-label-inner" aria-hidden="true">Falar com um Advogado</span></span></a>
+                <a href="${WA}?text=${encodeURIComponent(`Olá! Vim pelo site da Advocacia Marília, li o artigo "${a.title}" e gostaria de mais informações.`)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary cta-anim"><span class="cta-label"><span class="cta-label-inner">Falar com um Advogado</span><span class="cta-label-inner" aria-hidden="true">Falar com um Advogado</span></span></a>
                 <a href="../" class="article-back">&larr; Voltar para o blog</a>
             </div>
         </div>
