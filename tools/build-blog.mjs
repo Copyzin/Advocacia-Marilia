@@ -32,7 +32,7 @@ const FACE_FOCUS = {
     'simone.webp':        { fx: '54%', fy: '39%', fs: '1.85' },
     'carina.webp':        { fx: '53%', fy: '36%', fs: '1.85' },
     'joseaugusto.webp':   { fx: '59%', fy: '33%', fs: '1.68' },
-    'alessandra.webp':    { fx: '62%', fy: '39%', fs: '2.65' },
+    'alessandra.webp':    { fx: '50%', fy: '39%', fs: '2.10' },
 };
 
 const CATEGORIES = [
